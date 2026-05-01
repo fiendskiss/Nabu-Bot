@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react"
 import { useCallback, useEffect, useRef } from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger)
 
 interface CosmicSpectrumProps {
   color?:
@@ -52,8 +55,6 @@ export function CosmicSpectrum({
   const resolvedMainContentRevealAt = mainContentRevealAt ?? (mainContent ? 0.52 : 0.9)
 
   const setupAnimations = useCallback(() => {
-    const gsap = window.gsap
-    const ScrollTrigger = window.ScrollTrigger
 
     if (!gsap || !ScrollTrigger) return
 
@@ -277,39 +278,8 @@ export function CosmicSpectrum({
   }, [mainContent, resolvedMainContentRevealAt])
 
   useEffect(() => {
-    // Load external scripts
-    const loadScript = (src: string) => {
-      return new Promise((resolve, reject) => {
-        const script = document.createElement("script")
-        script.src = src
-        script.onload = resolve
-        script.onerror = reject
-        document.head.appendChild(script)
-      })
-    }
-
-    const initializeAnimations = async () => {
-      try {
-        await Promise.all([
-          loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"),
-          loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"),
-          loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"),
-        ])
-
-        // Wait a bit for scripts to be ready
-        setTimeout(() => {
-          if (window.gsap && window.ScrollTrigger) {
-            window.gsap.registerPlugin(window.ScrollTrigger)
-            setupAnimations()
-          }
-        }, 100)
-      } catch (error) {
-        console.error("Failed to load GSAP:", error)
-      }
-    }
-
-    initializeAnimations()
-  }, [setupAnimations])
+  setupAnimations()
+}, [setupAnimations])
 
   const splitText = (text: string, className = "") => {
     return text.split("").map((char, index) => (
