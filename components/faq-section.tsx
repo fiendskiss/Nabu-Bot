@@ -1,0 +1,262 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import BorderGlow from "@/components/BorderGlow";
+import DotBackground from "@/components/bg/dot";
+
+const quickFacts = [
+  { label: "Average response", value: "< 24h" },
+  { label: "Project formats", value: "Brand, web, expo" },
+  { label: "Support level", value: "Hands-on" },
+];
+
+const supportCards = [
+  {
+    title: "Project Planning",
+    description:
+      "We help shape scope, rollout phases, and deliverables before production begins.",
+  },
+  {
+    title: "Creative Direction",
+    description:
+      "From campaign systems to visual storytelling, we keep the output aligned across every touchpoint.",
+  },
+  {
+    title: "Launch Support",
+    description:
+      "We stay close through handoff, revisions, and final delivery so the work lands cleanly.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What kind of projects do you usually take on?",
+    a: "We mainly work on brand systems, websites, launch campaigns, and presentation-driven experiences that need a clear visual direction from concept to rollout.",
+  },
+  {
+    q: "Can you work from an existing brand instead of starting from scratch?",
+    a: "Yes. We can extend an existing identity, refine its system, and adapt it across digital, print, and physical placements without losing consistency.",
+  },
+  {
+    q: "Do you handle both strategy and design execution?",
+    a: "Yes. We usually support positioning, art direction, layout systems, motion references, and final design execution as one connected process.",
+  },
+  {
+    q: "How do revisions usually work?",
+    a: "We work in focused review rounds with clear feedback windows, so revisions stay intentional and the project keeps moving without getting muddy.",
+  },
+  {
+    q: "Can you design for large-format placements like billboards or expo graphics?",
+    a: "Absolutely. We build systems that scale well across posters, billboards, signage, decks, landing pages, and other campaign surfaces.",
+  },
+  {
+    q: "What do you need from us to get started?",
+    a: "A short brief, timeline goals, references if you have them, and clarity on where the work will be used. We can help shape the rest from there.",
+  },
+  {
+    q: "Do you also provide development support?",
+    a: "Yes when needed. We can collaborate on implementation details, prepare handoff assets, and help ensure the built result stays faithful to the design direction.",
+  },
+  {
+    q: "How do we know if the scope fits?",
+    a: "If you already know the launch goal, audience, and key deliverables, that is enough for a first conversation. We can help turn that into a practical scope.",
+  },
+];
+
+export default function FAQSection() {
+  const [query, setQuery] = useState("");
+
+  const filteredFaqs = useMemo(() => {
+    const normalized = query.trim().toLowerCase();
+    if (!normalized) return faqs;
+
+    return faqs.filter(({ q, a }) =>
+      `${q} ${a}`.toLowerCase().includes(normalized),
+    );
+  }, [query]);
+
+  return (
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#050505] text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <DotBackground />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.08),transparent_28%),radial-gradient(circle_at_75%_22%,rgba(168,85,247,0.09),transparent_24%),linear-gradient(180deg,rgba(5,5,5,0.72)_0%,rgba(5,5,5,0.86)_30%,#050505_100%)]" />
+      </div>
+
+      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[1520px] flex-col px-6 pb-20 pt-28 sm:px-8 lg:px-12 lg:pt-32">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12">
+          <div className="flex flex-col justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.35em] text-neutral-500">
+                FAQ
+              </p>
+              <h1 className="mt-4 max-w-3xl text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-[3.1rem] lg:text-[4.15rem]">
+                Answers for planning, building, and launching the work well.
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-[#D6DCF8]/74 sm:text-[1.08rem]">
+                A quick overview of how we usually work, what we deliver, and
+                what to expect when a project moves from direction into
+                production.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {quickFacts.map((fact) => (
+                <BorderGlow
+                  key={fact.label}
+                  className="h-full rounded-[1.5rem] px-5 py-5"
+                  borderRadius={24}
+                  edgeSensitivity={22}
+                  glowRadius={20}
+                  glowIntensity={0.38}
+                  fillOpacity={0.12}
+                  backgroundColor="rgba(255,255,255,0.02)"
+                  colors={["#60A5FA", "#A855F7", "#38BDF8"]}
+                >
+                  <p className="text-xs uppercase tracking-[0.28em] text-white/40">
+                    {fact.label}
+                  </p>
+                  <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-white">
+                    {fact.value}
+                  </p>
+                </BorderGlow>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-4">
+              {supportCards.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-5 backdrop-blur-sm"
+                >
+                  <h2 className="text-lg font-semibold tracking-[-0.03em] text-white">
+                    {item.title}
+                  </h2>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/65">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <div className="rounded-[1.75rem] border border-white/10 bg-black/25 p-4 backdrop-blur-md sm:p-5">
+              <div className="flex flex-col gap-4 border-b border-white/10 pb-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold tracking-[-0.04em] text-white sm:text-3xl">
+                    Common Questions
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-white/60">
+                    Search through the most common project, process, and
+                    delivery questions.
+                  </p>
+                </div>
+
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search questions..."
+                  className="h-11 w-full rounded-2xl border border-white/12 bg-white/[0.04] px-4 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-white/35 sm:max-w-[18rem]"
+                />
+              </div>
+
+              <div className="mt-5 grid gap-3">
+                {filteredFaqs.map((item, index) => (
+                  <FAQItem
+                    key={item.q}
+                    q={item.q}
+                    a={item.a}
+                    index={index + 1}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-5 backdrop-blur-sm">
+                <p className="text-xs uppercase tracking-[0.28em] text-white/40">
+                  Still deciding?
+                </p>
+                <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-white">
+                  We can start with a lightweight direction pass.
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-white/65">
+                  That usually helps clarify scope, priorities, and what the
+                  final system needs to cover before a full rollout begins.
+                </p>
+              </div>
+
+              <BorderGlow
+                className="rounded-[1.5rem] px-5 py-5"
+                borderRadius={24}
+                edgeSensitivity={20}
+                glowRadius={20}
+                glowIntensity={0.36}
+                fillOpacity={0.1}
+                backgroundColor="rgba(255,255,255,0.02)"
+                colors={["#60A5FA", "#A855F7", "#38BDF8"]}
+              >
+                <p className="text-xs uppercase tracking-[0.28em] text-white/40">
+                  Best next step
+                </p>
+                <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-white">
+                  Share the brief, the timeline, and where the work needs to
+                  live.
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-white/65">
+                  Once we have that, we can quickly tell you what shape the
+                  process should take and what the first deliverables should be.
+                </p>
+              </BorderGlow>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQItem({
+  q,
+  a,
+  index,
+}: {
+  q: string;
+  a: string;
+  index: number;
+}) {
+  const [open, setOpen] = useState(index === 1);
+
+  return (
+    <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.03] px-5 py-5 transition hover:border-white/20">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        className="flex w-full items-start justify-between gap-4 text-left"
+        aria-expanded={open}
+      >
+        <div className="flex items-start gap-3">
+          <span className="pt-0.5 text-xs text-white/35">
+            {String(index).padStart(2, "0")}
+          </span>
+          <h3 className="text-base font-semibold leading-6 text-white sm:text-lg">
+            {q}
+          </h3>
+        </div>
+        <span className="mt-0.5 text-xl leading-none text-white/55">
+          {open ? "-" : "+"}
+        </span>
+      </button>
+
+      <div
+        className={`grid transition-[grid-template-rows,margin] duration-300 ease-[cubic-bezier(.4,0,.2,1)] ${
+          open ? "mt-4 grid-rows-[1fr]" : "mt-0 grid-rows-[0fr]"
+        }`}
+      >
+        <div className="min-h-0 overflow-hidden pl-7">
+          <p className="max-w-2xl text-sm leading-6 text-white/65">{a}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
