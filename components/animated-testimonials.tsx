@@ -3,8 +3,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Star } from "lucide-react"
-import { motion, useAnimation, useInView } from "framer-motion"
+import { motion, useAnimation, useInView, easeOut, easeInOut,} from "framer-motion"
 import { useEffect, useRef, useState } from "react"
+
 
 export interface Testimonial {
   id: number
@@ -63,7 +64,7 @@ export function AnimatedTestimonials({
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: easeOut,
       },
     },
   }
@@ -144,7 +145,7 @@ export function AnimatedTestimonials({
                   x: activeIndex === index ? 0 : 100,
                   scale: activeIndex === index ? 1 : 0.9,
                 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                transition={{ duration: 0.5, ease: easeInOut }}
                 style={{ zIndex: activeIndex === index ? 10 : 0 }}
               >
                 <div className="flex h-full flex-col rounded-xl border border-white/10 bg-[#111111] p-8 text-white shadow-lg">
