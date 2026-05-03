@@ -23,6 +23,10 @@ interface RadialOrbitalTimelineProps {
   heightClassName?: string;
 }
 
+function roundStyleNumber(value: number, precision = 3) {
+  return Number(value.toFixed(precision));
+}
+
 export default function RadialOrbitalTimeline({
   timelineData,
   className = "",
@@ -110,7 +114,13 @@ export default function RadialOrbitalTimeline({
     const y = radius * Math.sin(radian) + centerOffset.y;
     const zIndex = Math.round(100 + 50 * Math.cos(radian));
     const opacity = Math.max(0.4, Math.min(1, 0.4 + 0.6 * ((1 + Math.sin(radian)) / 2)));
-    return { x, y, angle, zIndex, opacity };
+    return {
+      x: roundStyleNumber(x),
+      y: roundStyleNumber(y),
+      angle: roundStyleNumber(angle),
+      zIndex,
+      opacity: roundStyleNumber(opacity, 6),
+    };
   };
 
   const isRelatedToActive = (itemId: number): boolean => {
@@ -230,9 +240,9 @@ export default function RadialOrbitalTimeline({
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
                         <Badge className={`px-2 text-xs ${getStatusStyles(item.status)}`}>
-                          {item.status === "completed" ? "COMPLETE"
-                            : item.status === "in-progress" ? "IN PROGRESS"
-                            : "PENDING"}
+                          {item.status === "completed" ? "INTELLIGENCE"
+                            : item.status === "in-progress" ? "PERFORMANCE"
+                            : "INTERACTION"}
                         </Badge>
                         <span className="text-xs font-mono text-white/50">{item.date}</span>
                       </div>
@@ -245,7 +255,7 @@ export default function RadialOrbitalTimeline({
                         <div className="flex justify-between items-center text-xs mb-1">
                           <span className="flex items-center gap-1">
                             <Zap width={10} height={10} />
-                            Energy Level
+                            Performance Index
                           </span>
                           <span className="font-mono">{item.energy}%</span>
                         </div>

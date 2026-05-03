@@ -114,6 +114,26 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     Object.assign(textRef.current.style, styles);
     textRef.current.innerText = element.innerText;
   };
+  const clearEffectPosition = () => {
+    const emptyStyles = {
+      left: '0px',
+      top: '0px',
+      width: '0px',
+      height: '0px'
+    };
+
+    if (filterRef.current) {
+      Object.assign(filterRef.current.style, emptyStyles);
+      filterRef.current.classList.remove('active');
+      filterRef.current.querySelectorAll('.particle').forEach(p => p.remove());
+    }
+
+    if (textRef.current) {
+      Object.assign(textRef.current.style, emptyStyles);
+      textRef.current.classList.remove('active');
+      textRef.current.innerText = '';
+    }
+  };
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, index: number) => {
     const liEl = e.currentTarget;
     if (activeIndex === index) return;
@@ -148,6 +168,12 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   };
   useEffect(() => {
     if (!navRef.current || !containerRef.current) return;
+
+    if (activeIndex < 0) {
+      clearEffectPosition();
+      return;
+    }
+
     const activeLi = navRef.current.querySelectorAll('li')[activeIndex] as HTMLElement;
     if (activeLi) {
       updateEffectPosition(activeLi);

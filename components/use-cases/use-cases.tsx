@@ -5,62 +5,62 @@ import { TestimonialSlider } from "@/components/testimonial-slider-1";
 const reviews = [
   {
     id: 1,
-    name: "Ashley Right",
-    affiliation: "Pinterest",
+    name: "Precision support for elevated household tasks",
+    affiliation: "Use Cases",
     quote:
-      "Professionals in their craft! All products were super amazing with strong attention to details, comps and overall vibe.",
+      "Helps users safely change and install ceiling lights, assisting with household maintenance tasks that require reach, stability, and precision.",
     // Image from the provided screenshot
     imageSrc:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-5_qbgmyd.webp",
     thumbnailSrc:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=120&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-5_qbgmyd.webp",
   },
   {
     id: 2,
-    name: "Jacob Jose",
-    affiliation: "New York Times",
+    name: "Use Cases",
+    affiliation: "Autonomous Cleaning",
     quote:
-      "Unlimited, instant access to hundreds of premium quality resources created by designers for designers.",
+      "Performs routine floor vacuuming and surface cleaning, navigating through rooms efficiently while maintaining a consistently clean living space.",
     // Image from the provided screenshot
     imageSrc:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-2_bhgzhy.webp",
     thumbnailSrc:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=120&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-2_bhgzhy.webp",
   },
   {
     id: 3,
-    name: "Elara Sands",
-    affiliation: "Behance",
+    name: "Use Cases",
+    affiliation: "Laundry Support",
     quote:
-      "The attention to detail is immaculate. Every component feels polished and ready for production.",
+      "Assists in folding clothes after washing, helping organize laundry and reduce time spent on repetitive household chores.",
     // Thumbnail from the provided screenshot
     imageSrc:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-1_o69brw.webp",
     thumbnailSrc:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=120&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-1_o69brw.webp",
   },
   {
     id: 4,
-    name: "Marcus Cole",
-    affiliation: "Dribbble",
+    name: "Use Cases",
+    affiliation: "Child Companion Mode",
     quote:
-      "A true time-saver. I can focus on my core logic instead of pixel-pushing. Highly recommended.",
+      "Engages with children through safe interactive play, providing companionship, entertainment, and supervised activity support.",
     // Thumbnail from the provided screenshot
     imageSrc:
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-3_bsw1cy.webp",
     thumbnailSrc:
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=120&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-3_bsw1cy.webp",
   },
   {
     id: 5,
-    name: "Serena V.",
-    affiliation: "Figma",
+    name: "Use Cases",
+    affiliation: "Daily Household Assistance",
     quote:
-      "This is the design system I've been waiting for. It's flexible, accessible, and beautiful.",
+      "Supports users by holding and organizing items such as towels and household essentials, improving convenience during daily routines and multitasking.",
     imageSrc:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-4_l888ei.webp",
     thumbnailSrc:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&h=120&fit=crop&q=80",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/image-4_l888ei.webp",
   },
 ];
 

@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Text_03 } from "@/components/ui/Text_03";
-import { SplineScene } from "@/components/ui/splite";
+import { SplineScene } from "@/components/home/splite";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 const stats = [
   { label: "Height", value: "5'8" },
@@ -132,12 +133,12 @@ function Hotspot({
               <p className="text-xs leading-relaxed text-neutral-400">
                 {dot.description}
               </p>
-              <button
-                type="button"
+              <Link
+                href="/book"
                 className="mt-3 rounded-full border border-[#A855F7]/45 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] px-3 py-1 text-xs text-white shadow-[0_0_0_1px_rgba(96,165,250,0.16),0_0_18px_rgba(124,58,237,0.24),0_0_30px_rgba(96,165,250,0.14)] transition-colors hover:bg-white/10"
               >
                 Learn more
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
         )}

@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { CosmicSpectrum } from "@/components/cosmos-spectrum";
+import { createClient } from "@/lib/supabase/client";
 
 export default function ContactSpectrumSection() {
   return (
@@ -39,10 +40,44 @@ function ContactHeroContent() {
 
 function ContactFormCard() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const company = String(formData.get("company") ?? "").trim();
+    const subject = String(formData.get("subject") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+
+    if (!name || !email || !message) {
+      setSubmitError("Please complete the required fields before submitting.");
+      return;
+    }
+
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    const supabase = createClient();
+    const { error } = await supabase.from("contact_submissions").insert({
+      name,
+      email,
+      company: company || null,
+      subject: subject || null,
+      message,
+    });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      setSubmitError(error.message);
+      return;
+    }
+
     setIsSubmitted(true);
+    event.currentTarget.reset();
   };
 
   return (
@@ -80,6 +115,7 @@ function ContactFormCard() {
               <Field label="Name">
                 <input
                   required
+                  name="name"
                   type="text"
                   placeholder="Your name"
                   className={inputClassName}
@@ -89,6 +125,7 @@ function ContactFormCard() {
               <Field label="Email">
                 <input
                   required
+                  name="email"
                   type="email"
                   placeholder="you@example.com"
                   className={inputClassName}
@@ -99,6 +136,7 @@ function ContactFormCard() {
             <div className="grid gap-3.5 sm:grid-cols-2">
               <Field label="Company">
                 <input
+                  name="company"
                   type="text"
                   placeholder="Studio or team"
                   className={inputClassName}
@@ -107,6 +145,7 @@ function ContactFormCard() {
 
               <Field label="Subject">
                 <input
+                  name="subject"
                   type="text"
                   placeholder="What is this about?"
                   className={inputClassName}
@@ -117,6 +156,7 @@ function ContactFormCard() {
             <Field label="Message">
               <textarea
                 required
+                name="message"
                 rows={4}
                 placeholder="Tell us about the project, timeline, or what you want to discuss."
                 className={`${inputClassName} min-h-28 resize-none py-3`}
@@ -124,16 +164,22 @@ function ContactFormCard() {
             </Field>
 
             <div className="flex flex-col items-start justify-between gap-3.5 border-t border-white/10 pt-4 sm:flex-row sm:items-center">
-              <p className="max-w-xl text-xs leading-5 text-white/42">
-                This form currently shows a front-end success state after
-                submission.
-              </p>
+              <div className="max-w-xl">
+                <p className="text-xs leading-5 text-white/42">
+                  Messages are now saved in Supabase so the admin dashboard can
+                  track replies and clean up submissions.
+                </p>
+                {submitError ? (
+                  <p className="mt-2 text-xs text-[#FCA5A5]">{submitError}</p>
+                ) : null}
+              </div>
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="rounded-full border border-white/12 bg-white px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-[#EDEDED]"
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </div>
           </form>

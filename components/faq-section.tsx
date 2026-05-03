@@ -6,60 +6,60 @@ import DotBackground from "@/components/bg/dot";
 
 const quickFacts = [
   { label: "Average response", value: "< 24h" },
-  { label: "Project formats", value: "Brand, web, expo" },
-  { label: "Support level", value: "Hands-on" },
+  { label: "Best for", value: "Daily home routines" },
+  { label: "Support level", value: "Guided setup" },
 ];
 
 const supportCards = [
   {
-    title: "Project Planning",
+    title: "Home Fit Planning",
     description:
-      "We help shape scope, rollout phases, and deliverables before production begins.",
+      "We help map NABU features to the household routines, rooms, and moments where support matters most.",
   },
   {
-    title: "Creative Direction",
+    title: "Companion Setup",
     description:
-      "From campaign systems to visual storytelling, we keep the output aligned across every touchpoint.",
+      "From reminders to child companion mode, we keep setup focused, calm, and easy to understand.",
   },
   {
-    title: "Launch Support",
+    title: "Ongoing Care",
     description:
-      "We stay close through handoff, revisions, and final delivery so the work lands cleanly.",
+      "We stay close after the first conversation so routines, updates, and support questions stay connected.",
   },
 ];
 
 const faqs = [
   {
-    q: "What kind of projects do you usually take on?",
-    a: "We mainly work on brand systems, websites, launch campaigns, and presentation-driven experiences that need a clear visual direction from concept to rollout.",
+    q: "What is NABU designed to help with?",
+    a: "NABU is designed as a home companion that supports everyday routines, reminders, household organization, cleaning assistance, child companion moments, and simple connected-home interactions.",
   },
   {
-    q: "Can you work from an existing brand instead of starting from scratch?",
-    a: "Yes. We can extend an existing identity, refine its system, and adapt it across digital, print, and physical placements without losing consistency.",
+    q: "Is NABU a replacement for human care or supervision?",
+    a: "No. NABU can assist with routines and companionship, but it should not replace adult supervision, emergency services, medical care, or important household decisions.",
   },
   {
-    q: "Do you handle both strategy and design execution?",
-    a: "Yes. We usually support positioning, art direction, layout systems, motion references, and final design execution as one connected process.",
+    q: "What happens during a demo?",
+    a: "A demo is a guided walkthrough of NABU's core features, the types of routines it can support, and how setup could work in your home. It also helps us understand your floor plan, needs, and priorities.",
   },
   {
-    q: "How do revisions usually work?",
-    a: "We work in focused review rounds with clear feedback windows, so revisions stay intentional and the project keeps moving without getting muddy.",
+    q: "Can NABU adapt to different household routines?",
+    a: "Yes. The concept is built around repeated patterns, preferences, and daily schedules so NABU can become more useful as the household establishes clear routines.",
   },
   {
-    q: "Can you design for large-format placements like billboards or expo graphics?",
-    a: "Absolutely. We build systems that scale well across posters, billboards, signage, decks, landing pages, and other campaign surfaces.",
+    q: "What kind of home setup does NABU need?",
+    a: "NABU works best with clear pathways, stable connectivity, and a defined first set of tasks. During setup, we help identify where it should operate and which features should be enabled first.",
   },
   {
-    q: "What do you need from us to get started?",
-    a: "A short brief, timeline goals, references if you have them, and clarity on where the work will be used. We can help shape the rest from there.",
+    q: "How does support work after the first conversation?",
+    a: "Support can help with setup questions, routine tuning, troubleshooting context, and understanding feature limits. The best starting point is to share what NABU was doing and what changed in the environment.",
   },
   {
-    q: "Do you also provide development support?",
-    a: "Yes when needed. We can collaborate on implementation details, prepare handoff assets, and help ensure the built result stays faithful to the design direction.",
+    q: "How is household data handled conceptually?",
+    a: "NABU's personalization depends on routine and preference context, so the experience should stay transparent and user-controlled. Demo and support conversations focus only on the details needed to plan or improve assistance.",
   },
   {
-    q: "How do we know if the scope fits?",
-    a: "If you already know the launch goal, audience, and key deliverables, that is enough for a first conversation. We can help turn that into a practical scope.",
+    q: "What should we share before booking?",
+    a: "Share the routines you want help with, the rooms NABU would use most, any connected systems in the home, and your main concerns around setup, safety, or daily use.",
   },
 ];
 
@@ -90,12 +90,12 @@ export default function FAQSection() {
                 FAQ
               </p>
               <h1 className="mt-4 max-w-3xl text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-[3.1rem] lg:text-[4.15rem]">
-                Answers for planning, building, and launching the work well.
+                Answers for bringing NABU into everyday home routines.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-7 text-[#D6DCF8]/74 sm:text-[1.08rem]">
-                A quick overview of how we usually work, what we deliver, and
-                what to expect when a project moves from direction into
-                production.
+                A quick overview of how NABU works as a companion, what a demo
+                can cover, and how support stays tied to the real needs of the
+                home.
               </p>
             </div>
 
@@ -147,8 +147,8 @@ export default function FAQSection() {
                     Common Questions
                   </h2>
                   <p className="mt-2 text-sm leading-6 text-white/60">
-                    Search through the most common project, process, and
-                    delivery questions.
+                    Search through common questions about setup, routines,
+                    safety, support, and daily companion use.
                   </p>
                 </div>
 
@@ -178,11 +178,11 @@ export default function FAQSection() {
                   Still deciding?
                 </p>
                 <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-white">
-                  We can start with a lightweight direction pass.
+                  Start with the routines you want to make easier.
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-white/65">
-                  That usually helps clarify scope, priorities, and what the
-                  final system needs to cover before a full rollout begins.
+                  A short list of household tasks, rooms, and concerns gives us
+                  enough context to shape the first walkthrough.
                 </p>
               </div>
 
@@ -200,12 +200,12 @@ export default function FAQSection() {
                   Best next step
                 </p>
                 <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-white">
-                  Share the brief, the timeline, and where the work needs to
-                  live.
+                  Share the home context, the priority routines, and the support
+                  questions.
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-white/65">
-                  Once we have that, we can quickly tell you what shape the
-                  process should take and what the first deliverables should be.
+                  Once we have that, we can quickly tell you what a useful demo
+                  should cover and which setup steps matter first.
                 </p>
               </BorderGlow>
             </div>

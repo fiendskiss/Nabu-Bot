@@ -88,7 +88,7 @@ export default function AboutHero() {
             <div className="mt-6">
               <InteractiveHoverButton className="border-white/12 bg-black px-7 py-3 text-base text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_18px_40px_rgba(0,0,0,0.4)] [&>div:first-child>div:first-child]:bg-[linear-gradient(135deg,#7C3AED_0%,#5E00FF_50%,#A855F7_100%)] [&>div:last-child]:text-white">
                 <span className="inline-flex items-center gap-2">
-                  Learn more
+                  Contact the Team
                 </span>
               </InteractiveHoverButton>
             </div>

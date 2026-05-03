@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LiquidEther from "@/components/bg/LiquidEther";
+import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
@@ -260,15 +261,15 @@ MagneticButton.displayName = "MagneticButton";
 
 const MarqueeItem = () => (
   <div className="flex items-center space-x-12 px-6">
-    <span>Accountability Redefined</span>
+    <span>System Ready</span>
     <span className="text-[#A855F7]/75">*</span>
-    <span>Transparent Tracking</span>
+    <span>Neural Link</span>
     <span className="text-[#60A5FA]/75">*</span>
-    <span>12-Step Progress</span>
+    <span>Seamless Living</span>
     <span className="text-[#A855F7]/75">*</span>
-    <span>Sponsor Connection</span>
+    <span>Intelligent Design</span>
     <span className="text-[#60A5FA]/75">*</span>
-    <span>Absolute Privacy</span>
+    <span>process Running</span>
     <span className="text-[#A855F7]/75">*</span>
   </div>
 );
@@ -287,6 +288,8 @@ export function CinematicFooter({
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false);
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
+  const [newsletterError, setNewsletterError] = useState("");
 
   const isInline = mode === "inline";
 
@@ -413,6 +416,7 @@ export function CinematicFooter({
   const openNewsletter = () => {
     setIsNewsletterSubmitted(false);
     setNewsletterEmail("");
+    setNewsletterError("");
     setIsNewsletterOpen(true);
   };
 
@@ -420,11 +424,33 @@ export function CinematicFooter({
     setIsNewsletterOpen(false);
     setIsNewsletterSubmitted(false);
     setNewsletterEmail("");
+    setNewsletterError("");
   };
 
-  const handleNewsletterSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleNewsletterSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!newsletterEmail.trim()) return;
+    setNewsletterError("");
+    setIsNewsletterSubmitting(true);
+
+    const supabase = createClient();
+    const { error } = await supabase.from("newsletter_submissions").insert({
+      email: newsletterEmail.trim(),
+    });
+
+    setIsNewsletterSubmitting(false);
+
+    if (error) {
+      if (error.code === "23505") {
+        setIsNewsletterSubmitted(true);
+        setNewsletterEmail("");
+        return;
+      }
+
+      setNewsletterError(error.message);
+      return;
+    }
+
     setIsNewsletterSubmitted(true);
     setNewsletterEmail("");
   };
@@ -522,14 +548,14 @@ export function CinematicFooter({
                 </MagneticButton>
                 <MagneticButton
                   as="a"
-                  href="#"
+                  href="/terms"
                   className="footer-glass-pill rounded-full px-6 py-3 text-xs font-medium text-muted-foreground hover:text-foreground md:text-sm"
                 >
                   Terms of Service
                 </MagneticButton>
                 <MagneticButton
                   as="a"
-                  href="#"
+                  href="/support"
                   className="footer-glass-pill rounded-full px-6 py-3 text-xs font-medium text-muted-foreground hover:text-foreground md:text-sm"
                 >
                   Support
@@ -687,9 +713,10 @@ export function CinematicFooter({
                         <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                           <button
                             type="submit"
+                            disabled={isNewsletterSubmitting}
                             className="inline-flex flex-1 items-center justify-center rounded-full bg-[linear-gradient(135deg,#5E00FF_0%,#7C3AED_50%,#38BDF8_100%)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(94,0,255,0.22)] transition hover:brightness-110"
                           >
-                            Subscribe
+                            {isNewsletterSubmitting ? "Subscribing..." : "Subscribe"}
                           </button>
                           <button
                             type="button"
@@ -699,6 +726,12 @@ export function CinematicFooter({
                             Maybe later
                           </button>
                         </div>
+
+                        {newsletterError ? (
+                          <p className="mt-4 text-sm text-rose-300">
+                            {newsletterError}
+                          </p>
+                        ) : null}
                       </motion.form>
                     )}
                   </AnimatePresence>

@@ -29,13 +29,13 @@ export interface AnimatedTestimonialsProps {
 }
 
 export function AnimatedTestimonials({
-  title = "Loved by the community",
-  subtitle = "Don't just take our word for it. See what developers and companies have to say about our starter template.",
-  badgeText = "Trusted by developers",
+  title = "Loved by modern households",
+  subtitle = "Real experiences from households who have integrated the Robot Home Companion into their daily lives. Designed to simplify routines, enhance comfort, and provide reliable support across everyday tasks, the robot continues to earn trust through consistent performance and intelligent assistance.",
+  badgeText = "Trusted by families who value convenience, safety, and efficiency at home",
   testimonials = [],
   autoRotateInterval = 6000,
   trustedCompanies = [],
-  trustedCompaniesTitle = "Trusted by developers from companies worldwide",
+  trustedCompaniesTitle = "Trusted by families worldwide",
   className,
 }: AnimatedTestimonialsProps) {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -189,19 +189,7 @@ export function AnimatedTestimonials({
           </motion.div>
         </motion.div>
 
-        {/* Logo cloud */}
-        {trustedCompanies.length > 0 && (
-          <motion.div variants={itemVariants} initial="hidden" animate={controls} className="mt-24 text-center">
-            <h3 className="mb-8 text-sm font-medium text-slate-400">{trustedCompaniesTitle}</h3>
-            <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
-              {trustedCompanies.map((company) => (
-                <div key={company} className="text-2xl font-semibold text-slate-500">
-                  {company}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
+
       </div>
     </section>
   )

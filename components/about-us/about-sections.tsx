@@ -4,8 +4,8 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ReactNode, useRef } from "react";
 import BorderGlow from "@/components/BorderGlow";
-import MagicBento, { BentoCardProps } from "@/components/MagicBento";
-import { LandingAccordionItem } from "@/components/interactive-image-accordion";
+import MagicBento, { BentoCardProps } from "@/components/about-us/MagicBento";
+import { LandingAccordionItem } from "@/components/about-us/interactive-image-accordion";
 
 const Globe3DDemo = dynamic(() => import("@/components/about-us/3d-globe-demo"), {
   ssr: false,

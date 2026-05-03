@@ -1,16 +1,23 @@
 'use client'
 
+import { Michroma } from "next/font/google";
 import Testimonies from "@/components/use-cases/use-cases";
-import FifthSectionShowcase from "@/components/ui/FifthSectionShowcase";
-import HubOrb from "@/components/ui/HubOrb";
-import { RadialOrbitalTimelineDemo } from "@/components/ui/radial";
+import FifthSectionShowcase from "@/components/home/FifthSectionShowcase";
+import HubOrb from "@/components/home/HubOrb";
+import { RadialOrbitalTimelineDemo } from "@/components/home/radial";
 import { RobotSpecsSection } from "@/components/ui/Specs";
-import { SplineScene } from "@/components/ui/splite";
+import { TextScramble } from "@/components/ui/text-scramble";
+import { SplineScene } from "@/components/home/splite";
 import { useEffect, useRef } from "react";
 import LiquidEther from "../bg/LiquidEther";
 
 const ROBOT_SCENE_URL =
   "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
+
+const michroma = Michroma({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(max, Math.max(min, value));
@@ -118,6 +125,11 @@ export function SplineSceneBasic() {
       </div>
 
       <section ref={sectionRef} className="relative z-10 h-[300vh]">
+        <div
+          id="robot-specs-section"
+          aria-hidden="true"
+          className="absolute left-0 top-[32%] h-px w-px scroll-mt-24"
+        />
         <div className="sticky top-0 h-screen overflow-hidden">
           <div
             ref={robotRef}
@@ -135,24 +147,42 @@ export function SplineSceneBasic() {
 
           <div
             ref={heroOverlayRef}
-            className="pointer-events-none absolute inset-0 z-40 flex flex-col items-center justify-center"
+            className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-4 sm:px-6"
             style={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
           >
-            <h1 className="bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl">
-              Interactive 3D
-            </h1>
-            <p className="mt-4 max-w-lg px-8 text-center text-neutral-300">
-              Bring your UI to life with beautiful 3D scenes. Create immersive
-              experiences that capture attention and enhance your design.
-            </p>
+            <div className="absolute bottom-6 left-8 sm:bottom-7 sm:left-12 lg:bottom-8 lg:left-20">
+              <div className="flex flex-col gap-1 text-left leading-none">
+                <span className="text-[0.95rem] font-medium uppercase tracking-[0.32em] text-[rgba(255,255,255,0.98)] sm:text-[1.1rem] lg:text-[1.2rem]">
+                  Your
+                </span>
+                <span className="text-[0.95rem] font-medium uppercase tracking-[0.32em] text-[rgba(255,255,255,0.98)] sm:text-[1.1rem] lg:text-[1.2rem]">
+                  Daily
+                </span>
+                <span className="text-[0.95rem] font-medium uppercase tracking-[0.32em] text-[rgba(255,255,255,0.98)] sm:text-[1.1rem] lg:text-[1.2rem]">
+                  Companion
+                </span>
+              </div>
+            </div>
+
+            <div className="flex w-full items-center justify-center">
+              <TextScramble
+                as="h1"
+                duration={1.6}
+                speed={0.04}
+                characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                className={`${michroma.className} text-center text-[clamp(5.5rem,22vw,18rem)] font-normal uppercase leading-[0.84] tracking-[0.12em] text-[#F1EEFF] [text-shadow:0_0_24px_rgba(168,85,247,0.5),0_0_70px_rgba(94,0,255,0.34)]`}
+              >
+                NABU
+              </TextScramble>
+            </div>
           </div>
 
           <div
             ref={orbRef}
-            className="pointer-events-none absolute bottom-6 right-5 z-[90] sm:bottom-8 sm:right-6 md:bottom-10 md:right-8 lg:bottom-12 lg:right-10"
+            className="pointer-events-none absolute bottom-4 right-12 z-[90] sm:bottom-5 sm:right-16 md:bottom-6 md:right-24 lg:bottom-7 lg:right-32"
             style={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
           >
-            <HubOrb className="w-[8.5rem] sm:w-[9rem] md:w-[9.75rem] lg:w-[10.5rem]" />
+            <HubOrb className="w-[8rem] sm:w-[8.75rem] md:w-[9.5rem] lg:w-[10rem]" />
           </div>
 
           <div
@@ -179,15 +209,14 @@ export function SplineSceneBasic() {
 
                 <div className="w-full max-w-2xl text-center md:ml-auto md:w-[40%] md:text-right">
                   <p className="mb-4 text-sm uppercase tracking-[0.35em] text-neutral-500">
-                    Section Three
+                    Features
                   </p>
                   <h2 className="mb-6 text-3xl font-bold text-white md:text-5xl">
-                    The Robot Hands Off to the Story
+                    Built Around Your Daily Life
                   </h2>
                   <p className="text-lg leading-8 text-neutral-400 md:ml-auto">
-                    Once the systems overview is complete, the interface fades
-                    into a clean content view so the next section can take over
-                    without the robot competing for attention.
+                    From managing routines to learning user habits, the system is 
+                    designed to support everyday tasks through simple, connected features. Each function works together to provide organized, responsive, and personalized assistance inside the home.
                   </p>
                 </div>
               </div>
@@ -196,7 +225,10 @@ export function SplineSceneBasic() {
         </div>
       </section>
 
-      <section className="relative z-20 min-h-screen overflow-hidden bg-[#0A0A0A]">
+      <section
+        id="use-cases"
+        className="relative z-20 min-h-screen scroll-mt-24 overflow-hidden bg-[#0A0A0A]"
+      >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-transparent via-[#0A0A0A]/80 to-[#0A0A0A]" />
         <div className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-4 pb-10 pt-24 md:px-6 md:pb-14 md:pt-28">
           <div className="w-full">
