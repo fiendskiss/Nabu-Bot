@@ -140,9 +140,9 @@ export const TestimonialSlider = ({
         </div>
 
         {/* === Right Column: Text and Navigation === */}
-        <div className="order-2 flex flex-col justify-between md:col-span-5 md:order-3 md:pl-8">
+        <div className="order-2 flex flex-col justify-start md:col-span-5 md:order-3 md:justify-between md:pl-8">
           {/* Text Content */}
-          <div className="relative min-h-[17rem] overflow-hidden pt-1 sm:min-h-[15rem] md:min-h-[200px] md:pt-14">
+          <div className="relative overflow-visible pt-1 md:min-h-[200px] md:overflow-hidden md:pt-14">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -167,7 +167,7 @@ export const TestimonialSlider = ({
           </div>
 
           {/* Navigation Buttons */}
-          <div className="mt-5 flex items-center justify-center space-x-2 md:mt-0 md:justify-start">
+          <div className="mt-4 flex items-center justify-center space-x-2 md:mt-0 md:justify-start">
             <Button
               variant="outline"
               size="icon"

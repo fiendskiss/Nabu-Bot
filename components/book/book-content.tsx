@@ -25,16 +25,16 @@ export default function BookContent() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
         <p className="text-sm uppercase tracking-[0.35em] text-neutral-500">
-          Book a Demo
+          Private NABU Demo
         </p>
         <h1 className="mt-4 max-w-4xl text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-[3.2rem] lg:text-[4.25rem]">
-          See how the direction, the system, and the rollout can come together
-          in one live walkthrough.
+          Book a private walkthrough and see how NABU fits into everyday home
+          life.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-7 text-[#D6DCF8]/72 sm:text-[1.1rem]">
-          If you already have a concept, a launch target, or even just a rough
-          brief, we can turn that into a focused demo conversation and map the
-          next steps clearly.
+          Schedule time with the NABU team to explore companion routines,
+          household assistance, safety expectations, and the questions that
+          matter for your home or care environment.
         </p>
 
         <div className="mt-10 w-full max-w-[44rem]">
@@ -125,7 +125,7 @@ function DemoBookingPanel() {
             className="border-white/12 bg-black px-7 py-3 text-base text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_18px_40px_rgba(0,0,0,0.4)] [&>div:first-child>div:first-child]:bg-[linear-gradient(135deg,#7C3AED_0%,#5E00FF_50%,#A855F7_100%)] [&>div:last-child]:text-white"
           >
             <span className="inline-flex items-center gap-2">
-              Schedule a Demo
+              Book a Private Demo
             </span>
           </InteractiveHoverButton>
         </motion.div>
@@ -153,11 +153,12 @@ function DemoBookingPanel() {
                     Booking Form
                   </p>
                   <h2 className="mt-3 text-2xl font-bold tracking-[-0.04em] text-white sm:text-3xl">
-                    Tell us what the demo needs to cover.
+                    Tell us what you want to see from NABU.
                   </h2>
                   <p className="mt-3 max-w-2xl text-sm leading-6 text-white/62 sm:text-base">
-                    Share a few project details and we will have enough context
-                    to shape a focused walkthrough.
+                    Share a few details about your household, routine, or use
+                    case so we can shape the walkthrough around the right
+                    features.
                   </p>
                 </div>
 
@@ -194,9 +195,9 @@ function DemoBookingPanel() {
                       Demo request received.
                     </h3>
                     <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/62">
-                      We now have the basics we need. The next step would be to
-                      confirm availability and shape the walkthrough around your
-                      goals.
+                      We now have the basics we need. The next step is to
+                      confirm availability and prepare a NABU walkthrough around
+                      your questions.
                     </p>
                   </motion.div>
                 ) : (
@@ -236,7 +237,7 @@ function DemoBookingPanel() {
                         <input
                           name="company"
                           type="text"
-                          placeholder="Studio or team"
+                          placeholder="Household, team, or organization"
                           className={inputClassName}
                         />
                       </Field>
@@ -264,12 +265,12 @@ function DemoBookingPanel() {
                       </Field>
                     </div>
 
-                    <Field label="What should the demo focus on?">
+                    <Field label="What should your NABU demo focus on?">
                       <textarea
                         required
                         name="focus"
                         rows={5}
-                        placeholder="Tell us about the concept, the rollout, or the questions you want answered."
+                        placeholder="Tell us about the routines, rooms, family needs, care setting, or questions you want covered."
                         className={`${inputClassName} min-h-32 resize-none py-3`}
                       />
                     </Field>
@@ -277,8 +278,8 @@ function DemoBookingPanel() {
                     <div className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-4 sm:flex-row sm:items-center">
                       <div className="max-w-xl">
                         <p className="text-xs leading-5 text-white/42">
-                          Demo requests are now stored in Supabase so the admin
-                          dashboard can track progress and follow-up.
+                          Private demo requests are saved so the NABU team can
+                          plan the walkthrough and follow up clearly.
                         </p>
                         {submitError ? (
                           <p className="mt-2 text-xs text-[#FCA5A5]">

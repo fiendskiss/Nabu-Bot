@@ -21,32 +21,32 @@ export default function DefaultDemo() {
 
 	const images = [
 		{
-			src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Modern architecture building',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195933/maneken-11AU096_irkjn2.jpg',
+			alt: 'NABU expo campaign display on a building',
 		},
 		{
-			src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Urban cityscape at sunset',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195933/maneken-11USA074_n72ylt.jpg',
+			alt: 'NABU expo poster on an outdoor display',
 		},
 		{
-			src: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Abstract geometric pattern',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195933/maneken-OOH2_hh2edp.jpg',
+			alt: 'NABU expo large-format event billboard',
 		},
 		{
 			src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Mountain landscape',
+			alt: 'Open venue walkway for the NABU expo',
 		},
 		{
-			src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Minimalist design elements',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195932/maneken-11USA047_dgmg6d.jpg',
+			alt: 'NABU expo street-level poster placement',
 		},
 		{
-			src: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Ocean waves and beach',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195932/maneken-PS93_uek1nw.jpg',
+			alt: 'NABU expo printed event poster',
 		},
 		{
 			src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
-			alt: 'Forest trees and sunlight',
+			alt: 'Campus path leading to the NABU expo venue',
 		},
 	];
 
@@ -63,16 +63,16 @@ export default function DefaultDemo() {
 					)}
 				/>
 				<ExpoSectionHeader
-					label="Section One"
-					title="Expo visuals built to hold on billboards, posters, and every campaign surface in between."
-					description="This opening sequence previews the identity in the wild, from large-format outdoor placements to tighter editorial and poster moments, so the whole system reads as one campaign."
+					label="NABU Expo 2026"
+					title="See NABU move, listen, and assist in a live home demo."
+					description="Join us on November 25, 2026 at Lyceum-Northwestern University for an in-person walkthrough of NABU's companion routines, household support, and family-focused safety behaviors."
 					align="center"
 					className="max-w-5xl"
 				/>
 			</div>
 			<ZoomParallax
 				images={images}
-				finalOverlayText="A campaign system designed to scale from posters to skyline takeovers."
+				finalOverlayText="Meet the robot who will become your family."
 			/>
 			<div className="h-[50vh]"/>
 		</main>

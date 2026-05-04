@@ -5,11 +5,11 @@ import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const expoWords = [
-  "MOTION DESIGN",
-  "GRAPHIC DESIGN",
-  "BRANDING",
-  "STORYTELLING",
-  "VISUAL SYSTEMS",
+  "LIVE DEMO",
+  "VOICE CONTROL",
+  "HOME TASKS",
+  "FAMILY ROUTINES",
+  "SAFETY CHECKS",
 ];
 
 const NAV_OFFSET = "5.75rem";
@@ -61,7 +61,7 @@ export default function Section2() {
           >
             <div className="pointer-events-none absolute right-6 top-[calc(5.75rem-1.25rem)] z-20 sm:right-8 lg:right-12">
               <p className="text-right text-sm uppercase tracking-[0.35em] text-neutral-500">
-                Section Two
+                Demo Focus
               </p>
             </div>
 

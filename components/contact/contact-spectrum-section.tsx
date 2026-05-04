@@ -23,16 +23,16 @@ export default function ContactSpectrumSection() {
 function ContactHeroContent() {
   return (
     <div className="mx-auto max-w-4xl text-center">
-      <p className="mb-4 text-sm uppercase tracking-[0.35em] text-neutral-500">
-        Contact Us
+      <p className="text-sm font-semibold uppercase tracking-[0.35em] text-neutral-500">
+        Contact NABU
       </p>
-      <h1 className="bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-4xl font-bold text-transparent md:text-6xl">
-        Start the conversation and tell us what you are building next.
+      <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-[3.2rem] lg:text-[4.25rem]">
+        Contact the team about NABU, demos, setup, or support.
       </h1>
-      <p className="mt-4 max-w-2xl px-8 text-center text-neutral-300 mx-auto">
-        Whether you need a campaign direction, a launch-ready interface, or a
-        clearer system for the work ahead, send the essentials and we will help
-        shape the next step.
+      <p className="mx-auto mt-6 max-w-2xl px-8 text-center text-base leading-7 text-zinc-400 sm:text-[1.1rem]">
+        Send your questions about the home companion robot, private demos,
+        household routines, safety expectations, or how NABU could work in your
+        space.
       </p>
     </div>
   );
@@ -102,11 +102,11 @@ function ContactFormCard() {
               Contact Form
             </p>
             <h2 className="mt-3 text-2xl font-bold tracking-[-0.04em] text-white sm:text-3xl">
-              Share the brief, the goal, or the question.
+              Share your NABU question or request.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/62 sm:text-base">
-              A few key details are enough for us to understand where the work
-              is headed and how we can help.
+              A few details help the team understand whether you need demo
+              guidance, setup information, feature context, or support.
             </p>
           </div>
 
@@ -138,7 +138,7 @@ function ContactFormCard() {
                 <input
                   name="company"
                   type="text"
-                  placeholder="Studio or team"
+                  placeholder="Household, team, or organization"
                   className={inputClassName}
                 />
               </Field>
@@ -147,7 +147,7 @@ function ContactFormCard() {
                 <input
                   name="subject"
                   type="text"
-                  placeholder="What is this about?"
+                  placeholder="Demo, setup, support, or general question"
                   className={inputClassName}
                 />
               </Field>
@@ -158,7 +158,7 @@ function ContactFormCard() {
                 required
                 name="message"
                 rows={4}
-                placeholder="Tell us about the project, timeline, or what you want to discuss."
+                placeholder="Tell us what you want to know about NABU, your home context, or the support you need."
                 className={`${inputClassName} min-h-28 resize-none py-3`}
               />
             </Field>
@@ -166,8 +166,8 @@ function ContactFormCard() {
             <div className="flex flex-col items-start justify-between gap-3.5 border-t border-white/10 pt-4 sm:flex-row sm:items-center">
               <div className="max-w-xl">
                 <p className="text-xs leading-5 text-white/42">
-                  Messages are now saved in Supabase so the admin dashboard can
-                  track replies and clean up submissions.
+                  Messages are saved so the NABU team can track replies and
+                  follow up with the right context.
                 </p>
                 {submitError ? (
                   <p className="mt-2 text-xs text-[#FCA5A5]">{submitError}</p>

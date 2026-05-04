@@ -23,9 +23,9 @@ export interface Globe3DConfig {
   /** Globe base color (used as fallback or tint) */
   globeColor?: string;
   /** URL to the Earth texture map */
-  textureUrl?: string;
+  textureUrl?: string | null;
   /** URL to the bump/elevation map for terrain */
-  bumpMapUrl?: string;
+  bumpMapUrl?: string | null;
   /** Whether to show atmosphere glow */
   showAtmosphere?: boolean;
   /** Atmosphere color */
@@ -121,6 +121,8 @@ function Marker({
   marker,
   radius,
   defaultSize,
+  onClick,
+  onHover,
 }: MarkerProps) {
   const [imageFailed, setImageFailed] = useState(false);
   const groupRef = useRef<THREE.Group>(null);
@@ -177,7 +179,21 @@ function Marker({
   });
 
   return (
-    <group ref={groupRef}>
+    <group
+      ref={groupRef}
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick?.(marker);
+      }}
+      onPointerOver={(event) => {
+        event.stopPropagation();
+        onHover?.(marker);
+      }}
+      onPointerOut={(event) => {
+        event.stopPropagation();
+        onHover?.(null);
+      }}
+    >
       {/* Pin line from surface to image - properly oriented */}
       <mesh position={lineCenter} quaternion={lineQuaternion}>
         <cylinderGeometry args={[0.003, 0.003, lineHeight, 8]} />
@@ -238,6 +254,48 @@ function Marker({
   );
 }
 
+function GlobeGrid({
+  radius,
+  color,
+}: {
+  radius: number;
+  color: string;
+}) {
+  const latitudes = [-60, -30, 0, 30, 60];
+  const longitudes = Array.from({ length: 12 }, (_, index) => index * 15);
+
+  return (
+    <group>
+      {latitudes.map((latitude) => {
+        const latitudeRadians = THREE.MathUtils.degToRad(latitude);
+        const ringRadius = Math.cos(latitudeRadians) * radius * 1.006;
+        const y = Math.sin(latitudeRadians) * radius * 1.006;
+
+        return (
+          <mesh
+            key={`latitude-${latitude}`}
+            position={[0, y, 0]}
+            rotation={[Math.PI / 2, 0, 0]}
+          >
+            <torusGeometry args={[ringRadius, 0.003, 6, 128]} />
+            <meshBasicMaterial color={color} transparent opacity={0.24} />
+          </mesh>
+        );
+      })}
+
+      {longitudes.map((longitude) => (
+        <mesh
+          key={`longitude-${longitude}`}
+          rotation={[0, THREE.MathUtils.degToRad(longitude), 0]}
+        >
+          <torusGeometry args={[radius * 1.008, 0.0025, 6, 128]} />
+          <meshBasicMaterial color={color} transparent opacity={0.14} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 // ============================================================================
 // Rotating Globe with Markers (all rotate together)
 // ============================================================================
@@ -252,12 +310,16 @@ interface RotatingGlobeProps {
 
 function TexturedGlobeMaterial({
   config,
+  textureUrl,
+  bumpMapUrl,
 }: {
   config: Required<Globe3DConfig>;
+  textureUrl: string;
+  bumpMapUrl: string;
 }) {
   const [earthTexture, bumpTexture] = useTexture([
-    config.textureUrl,
-    config.bumpMapUrl,
+    textureUrl,
+    bumpMapUrl,
   ]);
 
   const configuredEarthTexture = useMemo(() => {
@@ -296,6 +358,26 @@ function RotatingGlobe({
 }: RotatingGlobeProps) {
   const groupRef = useRef<THREE.Group>(null);
 
+  React.useEffect(() => {
+    if (!groupRef.current) {
+      return;
+    }
+
+    groupRef.current.rotation.set(
+      config.initialRotation.x,
+      config.initialRotation.y,
+      0,
+    );
+  }, [config.initialRotation.x, config.initialRotation.y]);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current || config.autoRotateSpeed <= 0) {
+      return;
+    }
+
+    groupRef.current.rotation.y += delta * config.autoRotateSpeed * 0.25;
+  });
+
   // Create geometries
   const geometry = useMemo(() => {
     return new THREE.SphereGeometry(config.radius, 64, 64);
@@ -305,12 +387,19 @@ function RotatingGlobe({
     return new THREE.SphereGeometry(config.radius * 1.002, 32, 16);
   }, [config.radius]);
 
+  const shouldUseTexture =
+    textured && Boolean(config.textureUrl && config.bumpMapUrl);
+
   return (
     <group ref={groupRef}>
       {/* Main globe mesh with Earth texture */}
       <mesh geometry={geometry}>
-        {textured ? (
-          <TexturedGlobeMaterial config={config} />
+        {textured && config.textureUrl && config.bumpMapUrl ? (
+          <TexturedGlobeMaterial
+            config={config}
+            textureUrl={config.textureUrl}
+            bumpMapUrl={config.bumpMapUrl}
+          />
         ) : (
           <meshStandardMaterial
             color={config.globeColor}
@@ -323,15 +412,18 @@ function RotatingGlobe({
       </mesh>
 
       {/* Wireframe overlay */}
-      {!textured && config.showWireframe && (
-        <mesh geometry={wireframeGeometry}>
-          <meshBasicMaterial
-            color={config.wireframeColor}
-            wireframe
-            transparent
-            opacity={0.08}
-          />
-        </mesh>
+      {!shouldUseTexture && config.showWireframe && (
+        <>
+          <mesh geometry={wireframeGeometry}>
+            <meshBasicMaterial
+              color={config.wireframeColor}
+              wireframe
+              transparent
+              opacity={0.08}
+            />
+          </mesh>
+          <GlobeGrid radius={config.radius} color={config.wireframeColor} />
+        </>
       )}
 
       {/* Markers - now inside the rotating group */}
@@ -468,8 +560,6 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
         minDistance={config.minDistance}
         maxDistance={config.maxDistance}
         rotateSpeed={0.4}
-        autoRotate={config.autoRotateSpeed > 0}
-        autoRotateSpeed={config.autoRotateSpeed}
         enableDamping
         dampingFactor={0.1}
       />
@@ -503,6 +593,17 @@ function FallbackScene({
         onMarkerClick={onMarkerClick}
         onMarkerHover={onMarkerHover}
         textured={false}
+      />
+
+      <OrbitControls
+        makeDefault
+        enablePan={config.enablePan}
+        enableZoom={config.enableZoom}
+        minDistance={config.minDistance}
+        maxDistance={config.maxDistance}
+        rotateSpeed={0.4}
+        enableDamping
+        dampingFactor={0.1}
       />
     </>
   );

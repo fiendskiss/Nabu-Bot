@@ -108,6 +108,35 @@ function AccordionItem({
   );
 }
 
+function MobileTeamCard({ item }: { item: InteractiveAccordionItem }) {
+  return (
+    <article className="overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.018))]">
+      <div className="relative h-72 overflow-hidden sm:h-96">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${item.imageUrl})` }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.04)_0%,rgba(5,5,5,0.2)_42%,rgba(5,5,5,0.82)_100%)]" />
+        <div className="absolute right-4 top-4 rounded-full border border-white/15 bg-black/25 p-2 text-white/90 backdrop-blur-md">
+          <ArrowUpRight className="h-4 w-4" />
+        </div>
+      </div>
+
+      <div className="p-5">
+        <h3 className="text-xl font-semibold tracking-[-0.03em] text-white">
+          {item.title}
+        </h3>
+        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#A855F7]">
+          {item.role}
+        </p>
+        <p className="mt-3 text-sm leading-6 text-white/72">
+          {item.summary}
+        </p>
+      </div>
+    </article>
+  );
+}
+
 export function LandingAccordionItem({
   items = defaultItems,
   eyebrow = "Team",
@@ -117,13 +146,13 @@ export function LandingAccordionItem({
   const [activeIndex, setActiveIndex] = useState(1);
 
   return (
-    <section className="mx-auto flex min-h-[100svh] w-full max-w-[1500px] items-center px-6 py-14 text-white sm:px-8 sm:py-16 lg:px-12">
+    <section className="mx-auto flex w-full max-w-[1500px] items-center px-4 py-14 text-white sm:px-8 sm:py-16 lg:min-h-[100svh] lg:px-12">
       <div className="grid w-full items-start gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12">
         <div className="max-w-[36rem] lg:pr-4">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-neutral-500">
             {eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl font-black leading-[0.95] tracking-[-0.05em] sm:text-4xl lg:text-[3.4rem]">
+          <h2 className="mt-3 text-3xl font-black leading-[0.98] tracking-[-0.04em] sm:text-4xl lg:text-[3.4rem] lg:leading-[0.95] lg:tracking-[-0.05em]">
             {title}
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-6 text-zinc-400 sm:text-base">
@@ -131,7 +160,13 @@ export function LandingAccordionItem({
           </p>
         </div>
 
-        <div className="overflow-x-auto pb-2 lg:pl-2">
+        <div className="grid gap-4 lg:hidden">
+          {items.map((item) => (
+            <MobileTeamCard key={item.id} item={item} />
+          ))}
+        </div>
+
+        <div className="hidden overflow-x-auto pb-2 lg:block lg:pl-2">
           <div className="flex min-w-max items-center gap-4">
             {items.map((item, index) => (
               <AccordionItem

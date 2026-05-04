@@ -15,89 +15,89 @@ const capabilityCards: BentoCardProps[] = [
   {
     color: "#060010",
     label: "Perception",
-    title: "Room Awareness",
-    description: "Maps rooms, movement, and habits to respond naturally.",
+    title: "Home Awareness",
+    description: "Reads rooms, movement, and household context before acting.",
   },
   {
     color: "#060010",
     label: "Safety",
-    title: "Gentle Navigation",
-    description: "Moves with caution around people, pets, and furniture.",
+    title: "Careful Motion",
+    description: "Moves deliberately around people, furniture, and tight paths.",
   },
   {
     color: "#060010",
     label: "Assistance",
-    title: "Daily Support",
-    description: "Handles reminders, check-ins, and light household routines.",
+    title: "Routine Help",
+    description: "Supports reminders, check-ins, and repeated daily tasks.",
   },
   {
     color: "#060010",
     label: "Learning",
-    title: "Adaptive Intelligence",
-    description: "Improves with each interaction to match your home rhythm.",
+    title: "Adaptive Memory",
+    description: "Learns preferences and patterns so help becomes more natural.",
   },
   {
     color: "#060010",
     label: "Connection",
-    title: "Family Sync",
-    description: "Keeps every member informed with seamless household updates.",
+    title: "Family Context",
+    description: "Keeps household needs, schedules, and handoffs easier to follow.",
   },
   {
     color: "#060010",
     label: "Privacy",
-    title: "Protected by Design",
-    description: "Built with local-first controls and transparent permissions.",
+    title: "Clear Controls",
+    description: "Keeps permissions visible so people stay in charge of the home.",
   },
 ];
 
 const principles = [
   {
-    title: "Human-First Design",
+    title: "Trusted in Daily Routines",
     description:
-      "Every interaction is shaped to feel calm, intuitive, and reassuring in real homes.",
+      "Families use NABU for ordinary moments like reminders, check-ins, room-to-room support, and household coordination.",
   },
   {
-    title: "Reliable Everyday Autonomy",
+    title: "Safety-Led Movement",
     description:
-      "From navigation to reminders, the system is engineered to stay useful without demanding attention.",
+      "NABU moves with layered awareness, controlled speed, and clear limits around people, furniture, and shared spaces.",
   },
   {
-    title: "Trust Through Transparency",
+    title: "Reliable by Routine",
     description:
-      "We design for clear consent, visible status, and privacy controls that people can actually understand.",
+      "Repeated home tasks are designed to stay consistent, predictable, and easy for households to understand.",
   },
 ];
 
 const milestones = [
-  { value: "24/7", label: "companion readiness" },
-  { value: "99.2%", label: "routine task consistency" },
-  { value: "12+", label: "core home assistance flows" },
+  { value: "12K+", label: "households using NABU" },
+  { value: "38", label: "countries represented" },
+  { value: "99.2%", label: "routine reliability" },
 ];
 
 const journeyTimeline = [
   {
     step: "01",
-    title: "First Companion Vision",
+    title: "The Companion Idea",
     description:
-      "The team defined the core idea: a household robot that feels calm, helpful, and emotionally readable.",
+      "NABU began with a simple goal: make a household robot that feels useful, calm, and welcome around family routines.",
     imageUrl:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     step: "02",
-    title: "Navigation and Home Mapping",
+    title: "Learning the Home",
     description:
-      "Early systems focused on safe movement, compact-room behavior, and awareness around people and furniture.",
+      "The next step focused on room awareness, obstacle handling, and careful movement through real furniture layouts.",
     imageUrl:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     step: "03",
-    title: "Adaptive Intelligence Layer",
+    title: "From Robot to Helper",
     description:
-      "Context memory, routine learning, and companion dialogue were combined into one evolving experience stack.",
+      "Routine memory, voice interaction, and companion behavior came together so NABU can respond with better context.",
     imageUrl:
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/adsa_n5ifjx.webp",
   },
 ];
 
@@ -154,7 +154,7 @@ function JourneyTimelineSection() {
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="text-sm font-semibold uppercase tracking-[0.35em] text-neutral-500"
           >
-            Journey
+            NABU Journey
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
@@ -162,7 +162,7 @@ function JourneyTimelineSection() {
             transition={{ duration: 0.65, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
             className="mt-3 text-3xl font-black leading-[0.95] tracking-[-0.05em] sm:text-4xl lg:text-[3.4rem]"
           >
-            Explore the milestones behind the NABU platform.
+            From early prototype to home companion.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -170,9 +170,9 @@ function JourneyTimelineSection() {
             transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
             className="mt-4 max-w-xl text-sm leading-6 text-zinc-400 sm:text-base"
           >
-            Each stage reveals as you scroll through the section, showing how
-            the platform moved from concept to a more complete home companion
-            system.
+            The journey tracks how NABU evolved from a companion concept into a
+            robot built around home awareness, safer movement, and everyday
+            support.
           </motion.p>
         </div>
 
@@ -313,12 +313,12 @@ export default function AboutSections() {
               What Powers NABU
             </p>
             <h2 className="mt-3 text-3xl font-black leading-[0.95] tracking-[-0.05em] sm:text-4xl lg:text-[3.5rem]">
-              A capability stack designed for calm, helpful autonomy.
+              Practical intelligence built for real family routines.
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
-              This next section brings together the intelligence layers that
-              make NABU feel less like a machine and more like a dependable
-              presence in the home.
+              NABU combines perception, motion, memory, and clear controls so it
+              can help around the home without feeling confusing, intrusive, or
+              hard to manage.
             </p>
           </div>
 
@@ -350,12 +350,12 @@ export default function AboutSections() {
                 Built for Real Homes
               </p>
               <h2 className="mt-3 text-3xl font-black leading-[0.95] tracking-[-0.05em] sm:text-4xl lg:text-[3.5rem]">
-                Robotics that feel intentional in everyday spaces.
+                Already helping households around the world.
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-6 text-zinc-400 sm:text-base">
-                We focus on practical usefulness over spectacle, blending
-                adaptive software, safe movement, and approachable design into a
-                robot that belongs in daily life.
+                NABU is built for the reality of lived-in homes: busy rooms,
+                changing schedules, family routines, and people who need
+                technology to feel safe, reliable, and easy to trust.
               </p>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
@@ -392,7 +392,7 @@ export default function AboutSections() {
               backgroundColor="rgba(255, 255, 255, 0.015)"
               colors={["#60A5FA", "#A855F7", "#38BDF8"]}
             >
-              <div className="flex h-[21rem] items-center justify-center overflow-hidden rounded-[22px] bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.12),transparent_55%),#060010] sm:h-[28rem]">
+              <div className="flex h-[21rem] items-center justify-center overflow-hidden rounded-[22px] bg-[#060010] sm:h-[28rem]">
                 <div className="h-full w-full">
                   <Globe3DDemo />
                 </div>
