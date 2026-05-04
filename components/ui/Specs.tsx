@@ -219,57 +219,58 @@ export function RobotSpecsSection({
   };
 
   if (compact) {
-    const activeHotspot = hotspots.find((dot) => dot.id === activeId) ?? hotspots[0];
+    const activeHotspot = hotspots.find((dot) => dot.id === activeId);
 
     return (
-      <section className="relative w-full px-4 pb-14 pt-10 pointer-events-none sm:px-6 md:px-8">
-        <div className="mx-auto mb-10 w-full max-w-md pointer-events-auto">
-          <div
-            className={`relative h-[32rem] overflow-visible sm:h-[36rem] ${
-              showScene && scene
-                ? "overflow-hidden rounded-2xl border border-white/10 bg-black/40"
-                : ""
-            }`}
-          >
-            {showScene && scene ? (
-              <>
+      <section className="relative min-h-screen w-full pointer-events-none px-4 py-8 sm:px-6 md:px-8">
+        {showScene && scene ? (
+          <div className="absolute inset-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40">
               <div className="absolute inset-x-0 bottom-0 z-30 h-32 bg-gradient-to-t from-black via-black/60 to-transparent" />
               <div className="absolute inset-y-0 left-0 z-30 w-12 bg-gradient-to-r from-black via-black/70 to-transparent" />
               <div className="absolute inset-y-0 right-0 z-30 w-12 bg-gradient-to-l from-black via-black/70 to-transparent" />
               <SplineScene scene={scene} className="h-full w-full scale-[1.08]" />
-              </>
-            ) : null}
-
-            <div className="pointer-events-none absolute inset-0 z-40">
-              {hotspots.map((dot) => (
-                <Hotspot
-                  key={dot.id}
-                  dot={dot}
-                  isActive={activeId === dot.id}
-                  onOpen={() => openHotspot(dot.id)}
-                  onClose={() => closeHotspot(dot.id)}
-                  onToggle={() => toggleHotspot(dot.id)}
-                  compact
-                />
-              ))}
-            </div>
           </div>
+        ) : null}
 
-          <div className="mt-4 rounded-xl border border-white/10 bg-black/65 p-4 text-white shadow-xl backdrop-blur-md">
-            <p className="mb-1 text-sm font-semibold">{activeHotspot.label}</p>
-            <p className="text-xs leading-relaxed text-neutral-400">
-              {activeHotspot.description}
-            </p>
-            <Link
-              href="/book"
-              className="mt-3 inline-flex rounded-full border border-[#A855F7]/45 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] px-3 py-1 text-xs text-white shadow-[0_0_0_1px_rgba(96,165,250,0.16),0_0_18px_rgba(124,58,237,0.24),0_0_30px_rgba(96,165,250,0.14)] transition-colors hover:bg-white/10"
-            >
-              Learn more
-            </Link>
-          </div>
+        <div className="pointer-events-none absolute inset-x-4 top-[16svh] bottom-[17rem] z-40 mx-auto max-w-md sm:bottom-[13rem]">
+          {hotspots.map((dot) => (
+            <Hotspot
+              key={dot.id}
+              dot={dot}
+              isActive={activeId === dot.id}
+              onOpen={() => openHotspot(dot.id)}
+              onClose={() => closeHotspot(dot.id)}
+              onToggle={() => toggleHotspot(dot.id)}
+              compact
+            />
+          ))}
         </div>
 
-        <div className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-x-5 sm:grid-cols-3">
+        <AnimatePresence>
+          {activeHotspot ? (
+            <motion.div
+              key={activeHotspot.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="pointer-events-auto absolute inset-x-4 bottom-[15rem] z-50 mx-auto max-w-md rounded-xl border border-white/10 bg-black/70 p-4 text-white shadow-xl backdrop-blur-md sm:bottom-[11rem]"
+            >
+              <p className="mb-1 text-sm font-semibold">{activeHotspot.label}</p>
+              <p className="text-xs leading-relaxed text-neutral-400">
+                {activeHotspot.description}
+              </p>
+              <Link
+                href="/book"
+                className="mt-3 inline-flex rounded-full border border-[#A855F7]/45 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] px-3 py-1 text-xs text-white shadow-[0_0_0_1px_rgba(96,165,250,0.16),0_0_18px_rgba(124,58,237,0.24),0_0_30px_rgba(96,165,250,0.14)] transition-colors hover:bg-white/10"
+              >
+                Learn more
+              </Link>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+
+        <div className="absolute inset-x-4 bottom-8 z-40 mx-auto grid max-w-4xl grid-cols-2 gap-x-5 sm:grid-cols-3">
           {stats.map((stat, i) => (
             <div
               key={stat.label}
@@ -280,13 +281,13 @@ export function RobotSpecsSection({
               }}
             >
               <div className="h-px w-full bg-white/10" />
-              <div className="flex min-h-24 flex-col justify-center gap-1 py-4">
+              <div className="flex min-h-16 flex-col justify-center gap-1 py-2 sm:min-h-20 sm:py-3">
                 <p className="text-xs tracking-wide text-neutral-500 sm:text-sm">
                   {stat.label}
                 </p>
                 <Text_03
                   text={stat.value}
-                  className="!w-auto !justify-start !text-left !text-xl font-bold text-white sm:!text-2xl"
+                  className="!w-auto !justify-start !text-left !text-lg font-bold text-white sm:!text-2xl"
                 />
               </div>
             </div>

@@ -48,6 +48,10 @@ export function SplineSceneBasic() {
   const orbRef = useRef<HTMLDivElement>(null);
   const specsOverlayRef = useRef<HTMLDivElement>(null);
   const sectionThreeRef = useRef<HTMLDivElement>(null);
+  const mobileSectionRef = useRef<HTMLElement>(null);
+  const mobileHeroOverlayRef = useRef<HTMLDivElement>(null);
+  const mobileOrbRef = useRef<HTMLDivElement>(null);
+  const mobileSpecsOverlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let frameId = 0;
@@ -56,42 +60,67 @@ export function SplineSceneBasic() {
       frameId = 0;
 
       if (
-        !sectionRef.current ||
-        !robotRef.current ||
-        !heroOverlayRef.current ||
-        !orbRef.current ||
-        !specsOverlayRef.current ||
-        !sectionThreeRef.current
+        sectionRef.current &&
+        robotRef.current &&
+        heroOverlayRef.current &&
+        orbRef.current &&
+        specsOverlayRef.current &&
+        sectionThreeRef.current
       ) {
-        return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        const scrollDistance = Math.max(sectionRef.current.offsetHeight - window.innerHeight, 1);
+        const rawProgress = (-rect.top) / scrollDistance;
+        const progress = clamp(rawProgress);
+
+        const heroOpacity = 1 - rangeProgress(progress, 0.08, 0.3);
+        const specsOpacity = fadeWindow(progress, 0.22, 0.4, 0.58, 0.8);
+        const sectionThreeOpacity = rangeProgress(progress, 0.7, 0.92);
+        const robotOpacity = 1 - rangeProgress(progress, 0.74, 0.94);
+
+        heroOverlayRef.current.style.opacity = heroOpacity.toString();
+        heroOverlayRef.current.style.transform = `translate3d(0, ${progress * 48}px, 0)`;
+
+        orbRef.current.style.opacity = heroOpacity.toString();
+        orbRef.current.style.transform = `translate3d(0, ${progress * 42}px, 0)`;
+
+        specsOverlayRef.current.style.opacity = specsOpacity.toString();
+        specsOverlayRef.current.style.transform = `translate3d(0, ${(1 - specsOpacity) * 48}px, 0)`;
+
+        sectionThreeRef.current.style.opacity = sectionThreeOpacity.toString();
+        sectionThreeRef.current.style.transform = `translate3d(0, ${(1 - sectionThreeOpacity) * 56}px, 0)`;
+        sectionThreeRef.current.style.pointerEvents =
+          sectionThreeOpacity > 0.3 ? "auto" : "none";
+
+        robotRef.current.style.opacity = robotOpacity.toString();
+        robotRef.current.style.transform = `scale(${1 - sectionThreeOpacity * 0.04})`;
       }
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollDistance = Math.max(sectionRef.current.offsetHeight - window.innerHeight, 1);
-      const rawProgress = (-rect.top) / scrollDistance;
-      const progress = clamp(rawProgress);
+      if (
+        mobileSectionRef.current &&
+        mobileHeroOverlayRef.current &&
+        mobileOrbRef.current &&
+        mobileSpecsOverlayRef.current
+      ) {
+        const rect = mobileSectionRef.current.getBoundingClientRect();
+        const scrollDistance = Math.max(
+          mobileSectionRef.current.offsetHeight - window.innerHeight,
+          1
+        );
+        const progress = clamp((-rect.top) / scrollDistance);
+        const heroOpacity = 1 - rangeProgress(progress, 0.08, 0.34);
+        const specsOpacity = rangeProgress(progress, 0.32, 0.62);
 
-      const heroOpacity = 1 - rangeProgress(progress, 0.08, 0.3);
-      const specsOpacity = fadeWindow(progress, 0.22, 0.4, 0.58, 0.8);
-      const sectionThreeOpacity = rangeProgress(progress, 0.7, 0.92);
-      const robotOpacity = 1 - rangeProgress(progress, 0.74, 0.94);
+        mobileHeroOverlayRef.current.style.opacity = heroOpacity.toString();
+        mobileHeroOverlayRef.current.style.transform = `translate3d(0, ${progress * 36}px, 0)`;
 
-      heroOverlayRef.current.style.opacity = heroOpacity.toString();
-      heroOverlayRef.current.style.transform = `translate3d(0, ${progress * 48}px, 0)`;
+        mobileOrbRef.current.style.opacity = heroOpacity.toString();
+        mobileOrbRef.current.style.transform = `translate3d(0, ${progress * 30}px, 0)`;
 
-      orbRef.current.style.opacity = heroOpacity.toString();
-      orbRef.current.style.transform = `translate3d(0, ${progress * 42}px, 0)`;
-
-      specsOverlayRef.current.style.opacity = specsOpacity.toString();
-      specsOverlayRef.current.style.transform = `translate3d(0, ${(1 - specsOpacity) * 48}px, 0)`;
-
-      sectionThreeRef.current.style.opacity = sectionThreeOpacity.toString();
-      sectionThreeRef.current.style.transform = `translate3d(0, ${(1 - sectionThreeOpacity) * 56}px, 0)`;
-      sectionThreeRef.current.style.pointerEvents =
-        sectionThreeOpacity > 0.3 ? "auto" : "none";
-
-      robotRef.current.style.opacity = robotOpacity.toString();
-      robotRef.current.style.transform = `scale(${1 - sectionThreeOpacity * 0.04})`;
+        mobileSpecsOverlayRef.current.style.opacity = specsOpacity.toString();
+        mobileSpecsOverlayRef.current.style.transform = `translate3d(0, ${(1 - specsOpacity) * 36}px, 0)`;
+        mobileSpecsOverlayRef.current.style.pointerEvents =
+          specsOpacity > 0.35 ? "auto" : "none";
+      }
     };
 
     const handleScroll = () => {
@@ -125,63 +154,68 @@ export function SplineSceneBasic() {
       </div>
 
       <section className="relative z-10 lg:hidden">
-        <div className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-7 pt-24 sm:px-8">
-          <div className="pointer-events-none absolute inset-0 z-20">
-            <div className="absolute bottom-0 left-0 right-0 z-30 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
-            <div className="absolute bottom-0 left-0 top-0 z-30 w-16 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
-            <div className="absolute bottom-0 right-0 top-0 z-30 w-16 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+        <section ref={mobileSectionRef} className="relative h-[220svh]">
+          <div
+            id="robot-specs-section"
+            className="absolute left-0 top-[44%] h-px w-px scroll-mt-24"
+            aria-hidden="true"
+          />
 
-            <div className="relative z-20 h-full w-full pointer-events-auto">
-              <SplineScene scene={ROBOT_SCENE_URL} className="h-full w-full" />
+          <div className="sticky top-0 h-[100svh] overflow-hidden">
+            <div className="pointer-events-none absolute inset-0 z-20">
+              <div className="absolute bottom-0 left-0 right-0 z-30 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+              <div className="absolute bottom-0 left-0 top-0 z-30 w-16 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+              <div className="absolute bottom-0 right-0 top-0 z-30 w-16 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+
+              <div className="relative z-20 h-full w-full pointer-events-auto">
+                <SplineScene scene={ROBOT_SCENE_URL} className="h-full w-full" />
+              </div>
             </div>
-          </div>
 
-          <div className="pointer-events-none relative z-30 flex flex-1 items-center justify-center">
-            <TextScramble
-              as="h1"
-              duration={1.6}
-              speed={0.04}
-              characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-              className={`${michroma.className} text-center text-[clamp(4rem,23vw,10rem)] font-normal uppercase leading-[0.88] tracking-[0.12em] text-[#F1EEFF] [text-shadow:0_0_24px_rgba(168,85,247,0.5),0_0_70px_rgba(94,0,255,0.34)]`}
+            <div
+              ref={mobileHeroOverlayRef}
+              className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-5"
+              style={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
             >
-              NABU
-            </TextScramble>
-          </div>
-
-          <div className="pointer-events-none relative z-40 flex items-end justify-between gap-5">
-            <div className="flex flex-col gap-1 text-left leading-none">
-              <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
-                Your
-              </span>
-              <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
-                Daily
-              </span>
-              <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
-                Companion
-              </span>
+              <TextScramble
+                as="h1"
+                duration={1.6}
+                speed={0.04}
+                characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                className={`${michroma.className} text-center text-[clamp(3rem,17vw,7rem)] font-normal uppercase leading-[0.88] tracking-[0.08em] text-[#F1EEFF] [text-shadow:0_0_24px_rgba(168,85,247,0.5),0_0_70px_rgba(94,0,255,0.34)]`}
+              >
+                NABU
+              </TextScramble>
             </div>
-            <HubOrb className="w-[7rem] shrink-0 sm:w-[8rem]" />
-          </div>
-        </div>
 
-        <div
-          id="robot-specs-section"
-          className="relative min-h-[125svh] scroll-mt-24 overflow-hidden bg-gradient-to-b from-transparent via-[#0A0A0A]/70 to-[#0A0A0A]"
-        >
-          <div className="absolute inset-0 z-10 pointer-events-none">
-            <div className="absolute bottom-0 left-0 right-0 z-30 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
-            <div className="absolute bottom-0 left-0 top-0 z-30 w-16 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
-            <div className="absolute bottom-0 right-0 top-0 z-30 w-16 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+            <div
+              ref={mobileOrbRef}
+              className="pointer-events-none absolute bottom-7 left-5 right-5 z-40 flex items-end justify-between gap-5 sm:left-8 sm:right-8"
+              style={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
+            >
+              <div className="flex flex-col gap-1 text-left leading-none">
+                <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
+                  Your
+                </span>
+                <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
+                  Daily
+                </span>
+                <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
+                  Companion
+                </span>
+              </div>
+              <HubOrb className="w-[7rem] shrink-0 sm:w-[8rem]" />
+            </div>
 
-            <div className="relative z-20 h-full w-full pointer-events-auto">
-              <SplineScene scene={ROBOT_SCENE_URL} className="h-full w-full" />
+            <div
+              ref={mobileSpecsOverlayRef}
+              className="absolute inset-0 z-50 pointer-events-none"
+              style={{ opacity: 0, transform: "translate3d(0, 36px, 0)" }}
+            >
+              <RobotSpecsSection showScene={false} interactive compact />
             </div>
           </div>
-
-          <div className="relative z-20 flex min-h-[125svh] items-end">
-            <RobotSpecsSection showScene={false} interactive compact />
-          </div>
-        </div>
+        </section>
 
         <section className="relative overflow-visible bg-[#0A0A0A] px-5 pb-20 pt-8 sm:px-8 md:px-10">
           <div className="mx-auto flex w-full max-w-4xl flex-col gap-8">
@@ -308,10 +342,10 @@ export function SplineSceneBasic() {
 
       <section
         id="use-cases"
-        className="relative z-20 min-h-screen scroll-mt-24 overflow-hidden bg-[#0A0A0A]"
+        className="relative z-20 scroll-mt-24 overflow-hidden bg-[#0A0A0A] md:min-h-screen"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-transparent via-[#0A0A0A]/80 to-[#0A0A0A]" />
-        <div className="relative mx-auto flex min-h-screen w-full max-w-[100rem] items-center px-4 pb-10 pt-24 md:px-6 md:pb-14 md:pt-28">
+        <div className="relative mx-auto flex w-full max-w-[100rem] items-start px-4 pb-8 pt-14 md:min-h-screen md:items-center md:px-6 md:pb-14 md:pt-28">
           <div className="w-full">
             <Testimonies />
           </div>
