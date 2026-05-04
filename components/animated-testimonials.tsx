@@ -34,8 +34,6 @@ export function AnimatedTestimonials({
   badgeText = "Trusted by families who value convenience, safety, and efficiency at home",
   testimonials = [],
   autoRotateInterval = 6000,
-  trustedCompanies = [],
-  trustedCompaniesTitle = "Trusted by families worldwide",
   className,
 }: AnimatedTestimonialsProps) {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -95,7 +93,7 @@ export function AnimatedTestimonials({
     <section
       ref={sectionRef}
       id="testimonials"
-      className={`py-24 overflow-hidden bg-[#0A0A0A] text-white ${className || ""}`}
+      className={`overflow-hidden bg-[#0A0A0A] pb-36 pt-24 text-white md:py-24 ${className || ""}`}
     >
       <div className="px-4 md:px-6">
         <motion.div
@@ -134,7 +132,7 @@ export function AnimatedTestimonials({
           </motion.div>
 
           {/* Right side: Testimonial cards */}
-          <motion.div variants={itemVariants} className="relative h-full mr-10 min-h-[300px] md:min-h-[400px]">
+          <motion.div variants={itemVariants} className="relative min-h-[520px] md:mr-10 md:min-h-[400px]">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.id}
@@ -148,7 +146,40 @@ export function AnimatedTestimonials({
                 transition={{ duration: 0.5, ease: easeInOut }}
                 style={{ zIndex: activeIndex === index ? 10 : 0 }}
               >
-                <div className="flex h-full flex-col rounded-xl border border-white/10 bg-[#111111] p-8 text-white shadow-lg">
+                <div className="md:hidden">
+                  <div className="flex min-h-[374px] flex-col rounded-xl border border-white/10 bg-[#111111] px-8 py-10 text-white shadow-lg">
+                    <div className="flex gap-2">
+                      {Array(testimonial.rating)
+                        .fill(0)
+                        .map((_, i) => (
+                          <Star key={i} className="h-5 w-5 fill-yellow-500 text-yellow-500" />
+                        ))}
+                    </div>
+
+                    <p className="mt-9 text-xl font-semibold leading-9 text-white">
+                      {testimonial.content}
+                    </p>
+                  </div>
+
+                  <Separator className="mx-8 mt-7 bg-white/10" />
+
+                  <div className="mt-5 flex items-center gap-4 px-8">
+                    <Avatar className="h-14 w-14 border border-white/10">
+                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                      <AvatarFallback className="bg-white/10 text-white">
+                        {testimonial.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="text-lg font-semibold leading-tight text-white">{testimonial.name}</h3>
+                      <p className="text-base text-slate-300">
+                        {testimonial.role}, {testimonial.company}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="hidden h-full flex-col rounded-xl border border-white/10 bg-[#111111] p-8 text-white shadow-lg md:flex">
                   <div className="mb-6 flex gap-2">
                     {Array(testimonial.rating)
                       .fill(0)

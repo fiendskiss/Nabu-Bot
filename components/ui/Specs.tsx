@@ -73,11 +73,15 @@ function Hotspot({
   isActive,
   onOpen,
   onClose,
+  onToggle,
+  compact = false,
 }: {
   dot: HotspotDot;
   isActive: boolean;
   onOpen: () => void;
   onClose: () => void;
+  onToggle: () => void;
+  compact?: boolean;
 }) {
   const isRight = dot.side === "right";
 
@@ -93,18 +97,33 @@ function Hotspot({
     >
       <button
         type="button"
-        onMouseEnter={onOpen}
-        onMouseLeave={onClose}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggle();
+        }}
+        onMouseEnter={compact ? undefined : onOpen}
+        onMouseLeave={compact ? undefined : onClose}
         onFocus={onOpen}
         onBlur={onClose}
         aria-pressed={isActive}
-        className="pointer-events-auto relative z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full transition-transform duration-200 hover:scale-125"
+        className={`pointer-events-auto relative z-10 flex cursor-pointer items-center justify-center rounded-full transition-transform duration-200 hover:scale-125 ${
+          compact ? "h-10 w-10" : "h-8 w-8"
+        }`}
       >
-        <span className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-white/30" />
-        <span className="h-4 w-4 rounded-full bg-white/90 shadow-[0_0_16px_4px_rgba(255,255,255,0.42)]" />
+        <span
+          className={`pointer-events-none absolute inset-0 animate-ping rounded-full ${
+            isActive ? "bg-[#A855F7]/50" : "bg-white/30"
+          }`}
+        />
+        <span
+          className={`rounded-full shadow-[0_0_16px_4px_rgba(255,255,255,0.42)] ${
+            compact ? "h-5 w-5" : "h-4 w-4"
+          } ${isActive ? "bg-[#E9D5FF]" : "bg-white/90"}`}
+        />
       </button>
 
-      <AnimatePresence>
+      {!compact && (
+        <AnimatePresence>
         {isActive && (
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
@@ -142,7 +161,8 @@ function Hotspot({
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      )}
     </div>
   );
 }
@@ -151,10 +171,12 @@ export function RobotSpecsSection({
   interactive = true,
   scene,
   showScene = true,
+  compact = false,
 }: {
   interactive?: boolean;
   scene?: string;
   showScene?: boolean;
+  compact?: boolean;
 }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -176,6 +198,15 @@ export function RobotSpecsSection({
     setActiveId(id);
   };
 
+  const toggleHotspot = (id: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+
+    setActiveId((current) => (current === id ? null : id));
+  };
+
   const closeHotspot = (id: string) => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -186,6 +217,85 @@ export function RobotSpecsSection({
       closeTimeoutRef.current = null;
     }, 120);
   };
+
+  if (compact) {
+    const activeHotspot = hotspots.find((dot) => dot.id === activeId) ?? hotspots[0];
+
+    return (
+      <section className="relative w-full px-4 pb-14 pt-10 pointer-events-none sm:px-6 md:px-8">
+        <div className="mx-auto mb-10 w-full max-w-md pointer-events-auto">
+          <div
+            className={`relative h-[32rem] overflow-visible sm:h-[36rem] ${
+              showScene && scene
+                ? "overflow-hidden rounded-2xl border border-white/10 bg-black/40"
+                : ""
+            }`}
+          >
+            {showScene && scene ? (
+              <>
+              <div className="absolute inset-x-0 bottom-0 z-30 h-32 bg-gradient-to-t from-black via-black/60 to-transparent" />
+              <div className="absolute inset-y-0 left-0 z-30 w-12 bg-gradient-to-r from-black via-black/70 to-transparent" />
+              <div className="absolute inset-y-0 right-0 z-30 w-12 bg-gradient-to-l from-black via-black/70 to-transparent" />
+              <SplineScene scene={scene} className="h-full w-full scale-[1.08]" />
+              </>
+            ) : null}
+
+            <div className="pointer-events-none absolute inset-0 z-40">
+              {hotspots.map((dot) => (
+                <Hotspot
+                  key={dot.id}
+                  dot={dot}
+                  isActive={activeId === dot.id}
+                  onOpen={() => openHotspot(dot.id)}
+                  onClose={() => closeHotspot(dot.id)}
+                  onToggle={() => toggleHotspot(dot.id)}
+                  compact
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-xl border border-white/10 bg-black/65 p-4 text-white shadow-xl backdrop-blur-md">
+            <p className="mb-1 text-sm font-semibold">{activeHotspot.label}</p>
+            <p className="text-xs leading-relaxed text-neutral-400">
+              {activeHotspot.description}
+            </p>
+            <Link
+              href="/book"
+              className="mt-3 inline-flex rounded-full border border-[#A855F7]/45 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] px-3 py-1 text-xs text-white shadow-[0_0_0_1px_rgba(96,165,250,0.16),0_0_18px_rgba(124,58,237,0.24),0_0_30px_rgba(96,165,250,0.14)] transition-colors hover:bg-white/10"
+            >
+              Learn more
+            </Link>
+          </div>
+        </div>
+
+        <div className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-x-5 sm:grid-cols-3">
+          {stats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className="group transition-opacity duration-700"
+              style={{
+                opacity: 1,
+                transitionDelay: `${i * 80}ms`,
+              }}
+            >
+              <div className="h-px w-full bg-white/10" />
+              <div className="flex min-h-24 flex-col justify-center gap-1 py-4">
+                <p className="text-xs tracking-wide text-neutral-500 sm:text-sm">
+                  {stat.label}
+                </p>
+                <Text_03
+                  text={stat.value}
+                  className="!w-auto !justify-start !text-left !text-xl font-bold text-white sm:!text-2xl"
+                />
+              </div>
+            </div>
+          ))}
+          <div className="col-span-2 h-px w-full bg-white/10 sm:col-span-3" />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -249,6 +359,7 @@ export function RobotSpecsSection({
                 isActive={activeId === dot.id}
                 onOpen={() => openHotspot(dot.id)}
                 onClose={() => closeHotspot(dot.id)}
+                onToggle={() => toggleHotspot(dot.id)}
               />
             ))}
           </div>

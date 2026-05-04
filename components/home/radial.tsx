@@ -61,14 +61,26 @@ const timelineData = [
   },
 ];
 
-export function RadialOrbitalTimelineDemo() {
+export function RadialOrbitalTimelineDemo({
+  className,
+  heightClassName,
+}: {
+  className?: string;
+  heightClassName?: string;
+}) {
   return (
     <>
-      <RadialOrbitalTimeline timelineData={timelineData} />
+      <RadialOrbitalTimeline
+        timelineData={timelineData}
+        className={className}
+        heightClassName={heightClassName}
+      />
     </>
   );
 }
 
-export default {
+const radialDemoExports = {
   RadialOrbitalTimelineDemo,
 };
+
+export default radialDemoExports;

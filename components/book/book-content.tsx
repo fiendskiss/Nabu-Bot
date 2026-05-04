@@ -13,6 +13,7 @@ import DotBackground from "@/components/bg/dot";
 import BorderGlow from "@/components/BorderGlow";
 import { InteractiveHoverButton } from "@/components/button/interactive-hover-button";
 import { createClient } from "@/lib/supabase/client";
+import { formatTimeLabel } from "@/lib/time";
 
 export default function BookContent() {
   return (
@@ -56,6 +57,7 @@ function DemoBookingPanel() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const form = event.currentTarget;
     const hasDateError = !selectedDate;
     const hasTimeError = !selectedTime;
 
@@ -65,7 +67,7 @@ function DemoBookingPanel() {
       return;
     }
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const name = String(formData.get("name") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
     const company = String(formData.get("company") ?? "").trim();
@@ -99,7 +101,7 @@ function DemoBookingPanel() {
     }
 
     setIsSubmitted(true);
-    event.currentTarget.reset();
+    form.reset();
     setSelectedDate("");
     setSelectedTime("");
   };
@@ -805,10 +807,7 @@ function toInputTimeValue(time: TimeWheelValue) {
 }
 
 function formatDisplayTime(value: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(new Date(`1970-01-01T${value}:00`));
+  return formatTimeLabel(value);
 }
 
 function wrapIndex(index: number, length: number) {

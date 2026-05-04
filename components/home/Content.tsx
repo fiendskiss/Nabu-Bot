@@ -124,7 +124,88 @@ export function SplineSceneBasic() {
         />
       </div>
 
-      <section ref={sectionRef} className="relative z-10 h-[300vh]">
+      <section className="relative z-10 lg:hidden">
+        <div className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-7 pt-24 sm:px-8">
+          <div className="pointer-events-none absolute inset-0 z-20">
+            <div className="absolute bottom-0 left-0 right-0 z-30 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+            <div className="absolute bottom-0 left-0 top-0 z-30 w-16 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+            <div className="absolute bottom-0 right-0 top-0 z-30 w-16 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+
+            <div className="relative z-20 h-full w-full pointer-events-auto">
+              <SplineScene scene={ROBOT_SCENE_URL} className="h-full w-full" />
+            </div>
+          </div>
+
+          <div className="pointer-events-none relative z-30 flex flex-1 items-center justify-center">
+            <TextScramble
+              as="h1"
+              duration={1.6}
+              speed={0.04}
+              characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+              className={`${michroma.className} text-center text-[clamp(4rem,23vw,10rem)] font-normal uppercase leading-[0.88] tracking-[0.12em] text-[#F1EEFF] [text-shadow:0_0_24px_rgba(168,85,247,0.5),0_0_70px_rgba(94,0,255,0.34)]`}
+            >
+              NABU
+            </TextScramble>
+          </div>
+
+          <div className="pointer-events-none relative z-40 flex items-end justify-between gap-5">
+            <div className="flex flex-col gap-1 text-left leading-none">
+              <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
+                Your
+              </span>
+              <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
+                Daily
+              </span>
+              <span className="text-[0.8rem] font-medium uppercase tracking-[0.26em] text-[rgba(255,255,255,0.98)] sm:text-[0.95rem]">
+                Companion
+              </span>
+            </div>
+            <HubOrb className="w-[7rem] shrink-0 sm:w-[8rem]" />
+          </div>
+        </div>
+
+        <div
+          id="robot-specs-section"
+          className="relative min-h-[125svh] scroll-mt-24 overflow-hidden bg-gradient-to-b from-transparent via-[#0A0A0A]/70 to-[#0A0A0A]"
+        >
+          <div className="absolute inset-0 z-10 pointer-events-none">
+            <div className="absolute bottom-0 left-0 right-0 z-30 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+            <div className="absolute bottom-0 left-0 top-0 z-30 w-16 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+            <div className="absolute bottom-0 right-0 top-0 z-30 w-16 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+
+            <div className="relative z-20 h-full w-full pointer-events-auto">
+              <SplineScene scene={ROBOT_SCENE_URL} className="h-full w-full" />
+            </div>
+          </div>
+
+          <div className="relative z-20 flex min-h-[125svh] items-end">
+            <RobotSpecsSection showScene={false} interactive compact />
+          </div>
+        </div>
+
+        <section className="relative overflow-visible bg-[#0A0A0A] px-5 pb-20 pt-8 sm:px-8 md:px-10">
+          <div className="mx-auto flex w-full max-w-4xl flex-col gap-8">
+            <div className="text-center md:text-left">
+              <p className="mb-4 text-xs uppercase tracking-[0.32em] text-neutral-500 sm:text-sm">
+                Features
+              </p>
+              <h2 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl">
+                Built Around Your Daily Life
+              </h2>
+              <p className="text-base leading-7 text-neutral-400 sm:text-lg sm:leading-8">
+                From managing routines to learning user habits, the system is
+                designed to support everyday tasks through simple, connected
+                features. Each function works together to provide organized,
+                responsive, and personalized assistance inside the home.
+              </p>
+            </div>
+
+            <RadialOrbitalTimelineDemo heightClassName="h-[30rem] sm:h-[34rem] md:h-[38rem]" />
+          </div>
+        </section>
+      </section>
+
+      <section ref={sectionRef} className="relative z-10 hidden h-[300vh] lg:block">
         <div
           id="robot-specs-section"
           aria-hidden="true"

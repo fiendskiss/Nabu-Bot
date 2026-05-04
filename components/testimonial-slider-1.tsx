@@ -89,15 +89,15 @@ export const TestimonialSlider = ({
   return (
     <div
       className={cn(
-        "relative mx-auto flex h-full w-full min-h-[620px] max-w-[84rem] overflow-hidden bg-transparent px-6 py-6 text-neutral-400 md:min-h-[580px] md:px-10 md:py-10",
+        "relative mx-auto flex h-full w-full max-w-[84rem] overflow-hidden bg-transparent px-0 py-4 text-neutral-400 sm:px-2 md:min-h-[580px] md:px-10 md:py-10",
         className
       )}
     >
-      <div className="grid h-full grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
+      <div className="grid h-full w-full grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
         {/* === Left Column: Meta and Thumbnails === */}
-        <div className="order-2 flex flex-col justify-end md:col-span-2 md:order-1">
+        <div className="order-3 flex flex-col justify-end md:col-span-2 md:order-1">
           {/* Thumbnail Navigation */}
-          <div className="mt-4 flex space-x-2 md:mt-0">
+          <div className="flex justify-center gap-2 md:mt-0 md:justify-start md:space-x-2">
             {thumbnailReviews.map((review) => {
               // Find the original index to navigate to
               const originalIndex = reviews.findIndex(
@@ -107,7 +107,7 @@ export const TestimonialSlider = ({
                 <button
                   key={review.id}
                   onClick={() => handleThumbnailClick(originalIndex)}
-                  className="h-20 w-16 overflow-hidden rounded-md opacity-70 transition-opacity duration-300 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/60 focus:ring-offset-2 focus:ring-offset-transparent md:h-24 md:w-20"
+                  className="h-16 w-14 shrink-0 overflow-hidden rounded-md opacity-70 transition-opacity duration-300 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/60 focus:ring-offset-2 focus:ring-offset-transparent sm:h-20 sm:w-16 md:h-24 md:w-20"
                   aria-label={`View review from ${review.name}`}
                 >
                   <img
@@ -122,7 +122,7 @@ export const TestimonialSlider = ({
         </div>
 
         {/* === Center Column: Main Image === */}
-        <div className="relative order-1 h-72 min-h-[320px] md:col-span-4 md:order-2 md:min-h-[420px]">
+        <div className="relative order-1 h-[22rem] min-h-0 overflow-hidden rounded-lg sm:h-[26rem] md:col-span-4 md:order-2 md:min-h-[420px]">
           <AnimatePresence initial={false} custom={direction}>
             <motion.img
               key={currentIndex}
@@ -134,15 +134,15 @@ export const TestimonialSlider = ({
               animate="center"
               exit="exit"
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }} // Cubic bezier for smooth ease
-              className="absolute inset-0 w-full h-full object-cover rounded-lg"
+              className="absolute inset-0 h-full w-full object-cover"
             />
           </AnimatePresence>
         </div>
 
         {/* === Right Column: Text and Navigation === */}
-        <div className="order-3 flex flex-col justify-between md:col-span-5 md:order-3 md:pl-8">
+        <div className="order-2 flex flex-col justify-between md:col-span-5 md:order-3 md:pl-8">
           {/* Text Content */}
-          <div className="relative min-h-[180px] overflow-hidden pt-2 md:min-h-[200px] md:pt-14">
+          <div className="relative min-h-[17rem] overflow-hidden pt-1 sm:min-h-[15rem] md:min-h-[200px] md:pt-14">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -153,13 +153,13 @@ export const TestimonialSlider = ({
                 exit="exit"
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               >
-                <p className="text-sm font-medium uppercase tracking-[0.35em] text-neutral-500">
+                <p className="text-xs font-medium uppercase tracking-[0.28em] text-neutral-500 sm:text-sm sm:tracking-[0.35em]">
                   {activeReview.affiliation}
                 </p>
-                <h3 className="mt-2 text-xl font-semibold text-white">
+                <h3 className="mt-2 text-lg font-semibold leading-snug text-white sm:text-xl">
                   {activeReview.name}
                 </h3>
-                <blockquote className="mt-6 text-2xl font-medium leading-snug text-neutral-400 md:text-3xl">
+                <blockquote className="mt-4 text-base font-medium leading-7 text-neutral-400 sm:text-lg sm:leading-8 md:mt-6 md:text-3xl md:leading-snug">
                   &ldquo;{activeReview.quote}&rdquo;
                 </blockquote>
               </motion.div>
@@ -167,24 +167,24 @@ export const TestimonialSlider = ({
           </div>
 
           {/* Navigation Buttons */}
-          <div className="mt-6 flex items-center space-x-2 md:mt-0">
+          <div className="mt-5 flex items-center justify-center space-x-2 md:mt-0 md:justify-start">
             <Button
               variant="outline"
               size="icon"
-              className="rounded-full w-12 h-12 border-muted-foreground/50"
+              className="h-11 w-11 rounded-full border-muted-foreground/50 md:h-12 md:w-12"
               onClick={handlePrev}
               aria-label="Previous review"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="default"
               size="icon"
-              className="rounded-full w-12 h-12 bg-primary text-primary-foreground hover:bg-primary/90"
+              className="h-11 w-11 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 md:h-12 md:w-12"
               onClick={handleNext}
               aria-label="Next review"
             >
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="h-5 w-5" />
             </Button>
           </div>
         </div>

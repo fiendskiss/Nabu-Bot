@@ -94,15 +94,15 @@ export default function FifthSectionShowcase() {
   const wheelOffset = wheelRowHeight - rightIndex * wheelRowHeight;
 
   return (
-    <div className="w-full px-6 py-16 md:px-10 md:py-20">
-      <div className="mx-auto grid min-h-[70vh] w-full max-w-[102rem] grid-cols-1 gap-12 lg:grid-cols-[1.05fr_auto_1fr] lg:items-center">
-        <div className="relative flex min-h-[24rem] flex-col justify-center">
-          <p className="absolute top-0 left-0 text-sm font-medium uppercase tracking-[0.24em] text-neutral-500">
+    <div className="w-full px-4 py-16 sm:px-6 md:px-10 md:py-20">
+      <div className="mx-auto grid w-full max-w-[102rem] grid-cols-1 gap-10 sm:gap-12 lg:min-h-[70vh] lg:grid-cols-[1.05fr_auto_1fr] lg:items-center">
+        <div className="relative flex min-h-0 flex-col justify-center gap-8 sm:min-h-[18rem] lg:min-h-[24rem]">
+          <p className="text-sm font-medium uppercase tracking-[0.24em] text-neutral-500 lg:absolute lg:left-0 lg:top-0">
             About Us
           </p>
 
-          <div className="flex flex-nowrap items-baseline gap-3 whitespace-nowrap md:gap-5 lg:gap-6">
-            <p className="text-4xl font-semibold leading-[0.98] tracking-tight text-white md:text-[3.9rem] lg:text-[4.7rem]">
+          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-4 md:gap-5 lg:flex-nowrap lg:gap-6 lg:whitespace-nowrap">
+            <p className="text-4xl font-semibold leading-none text-white sm:text-5xl md:text-[3.9rem] lg:text-[4.7rem]">
               We are
             </p>
             <AnimatePresence mode="wait">
@@ -112,9 +112,9 @@ export default function FifthSectionShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="overflow-hidden"
+                className="min-w-0 overflow-hidden"
               >
-                <p className="text-5xl font-medium leading-none tracking-tight text-neutral-500 md:text-[4.35rem] lg:text-[5rem]">
+                <p className="break-words text-4xl font-medium leading-none text-neutral-500 sm:text-5xl md:text-[4.35rem] lg:text-[5rem]">
                   {currentWord}
                 </p>
               </motion.div>
@@ -132,9 +132,9 @@ export default function FifthSectionShowcase() {
           </div>
         </div>
 
-        <div className="relative border-t border-white/5 lg:border-t-0">
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-20 bg-gradient-to-b from-[#0A0A0A] via-[#0A0A0A]/92 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-20 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/92 to-transparent" />
+        <div className="relative border-t border-white/5 pt-4 lg:border-t-0 lg:pt-0">
+          <div className="pointer-events-none absolute inset-x-0 top-4 z-20 h-16 bg-gradient-to-b from-[#0A0A0A] via-[#0A0A0A]/92 to-transparent lg:top-0 lg:h-20" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/92 to-transparent lg:h-20" />
 
           <div className="relative h-[336px] overflow-hidden md:h-[360px]">
             <motion.div
@@ -153,7 +153,7 @@ export default function FifthSectionShowcase() {
                 return (
                   <div
                     key={`${item.title}-${index}`}
-                    className="grid h-28 grid-cols-1 items-center gap-3 border-b border-white/6 md:grid-cols-[1.1fr_1fr] md:gap-8"
+                    className="grid h-28 grid-cols-1 items-center gap-1 border-b border-white/6 py-4 sm:gap-2 md:grid-cols-[1.1fr_1fr] md:gap-8 md:py-0"
                   >
                     <motion.p
                       animate={{
@@ -161,7 +161,7 @@ export default function FifthSectionShowcase() {
                         scale: isCentered ? 1 : 0.94,
                       }}
                       transition={{ duration: 0.28, ease: "easeOut" }}
-                      className={`text-3xl tracking-tight md:text-[3rem] ${
+                      className={`text-2xl sm:text-3xl md:text-[3rem] ${
                         isCentered ? "font-semibold text-white" : "font-medium text-neutral-500"
                       }`}
                     >
@@ -174,7 +174,7 @@ export default function FifthSectionShowcase() {
                         scale: isCentered ? 1 : 0.97,
                       }}
                       transition={{ duration: 0.28, ease: "easeOut" }}
-                      className={`text-base md:text-2xl ${
+                      className={`text-sm leading-6 sm:text-base md:text-2xl ${
                         isCentered ? "text-neutral-300" : "text-neutral-600"
                       }`}
                     >
