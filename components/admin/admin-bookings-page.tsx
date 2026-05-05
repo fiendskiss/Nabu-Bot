@@ -136,10 +136,15 @@ export default function AdminBookingsPage({
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.24em] text-white/44">
-                    <span>{formatDate(entry.created_at)}</span>
-                    <span>{formatPreferredDate(entry.preferred_date)}</span>
-                    <span>{formatTimeLabel(entry.preferred_time)}</span>
+                  <div className="grid gap-3 text-xs uppercase tracking-[0.22em] text-white/44 sm:grid-cols-2">
+                    <BookingMeta
+                      label="Submitted"
+                      value={formatDate(entry.created_at)}
+                    />
+                    <BookingMeta
+                      label="Booked For"
+                      value={`${formatPreferredDate(entry.preferred_date)} ${formatTimeLabel(entry.preferred_time)}`}
+                    />
                   </div>
 
                   <p className="max-w-4xl text-sm leading-7 text-white/74">
@@ -180,6 +185,25 @@ export default function AdminBookingsPage({
           />
         </AdminSidePanel>
       </aside>
+    </div>
+  );
+}
+
+function BookingMeta({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3">
+      <p className="text-[0.62rem] font-semibold tracking-[0.28em] text-white/34">
+        {label}
+      </p>
+      <p className="mt-2 text-[0.72rem] font-semibold tracking-[0.18em] text-white/68">
+        {value}
+      </p>
     </div>
   );
 }
