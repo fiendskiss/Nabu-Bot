@@ -173,9 +173,7 @@ export default function AdminContactPage({
       </div>
 
       <aside className="xl:sticky xl:top-6">
-        <AdminSidePanel
-          title="Contact Pipeline"
-        >
+        <AdminSidePanel title="Contact Pipeline">
           <StatusCard
             label="New Contacts"
             value={contactStatusCounts.new}

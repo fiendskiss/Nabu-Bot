@@ -162,9 +162,7 @@ export default function AdminBookingsPage({
       </div>
 
       <aside className="xl:sticky xl:top-6">
-        <AdminSidePanel
-          title="Booking Pipeline"
-        >
+        <AdminSidePanel title="Booking Pipeline">
           <StatusCard
             label="New Bookings"
             value={bookingStatusCounts.new}

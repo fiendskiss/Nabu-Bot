@@ -13,8 +13,8 @@ export function AdminHeaderCard({
   action?: React.ReactNode;
 }) {
   return (
-    <section className="rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <section className="flex min-h-[11.25rem] rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:min-h-[12rem] sm:p-8">
+      <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.35em] text-white/38">
             Admin Dashboard
@@ -31,12 +31,16 @@ export function AdminHeaderCard({
 }
 
 export function AdminPanel({
+  className = "",
   children,
 }: {
+  className?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8">
+    <section
+      className={`rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8 ${className}`}
+    >
       {children}
     </section>
   );
@@ -52,7 +56,7 @@ export function AdminSidePanel({
   return (
     <AdminPanel>
       <div className="space-y-5">
-        <div>
+        <div className="min-h-[7rem]">
           <p className="text-xs uppercase tracking-[0.3em] text-white/38">
             Summary
           </p>
@@ -114,7 +118,7 @@ export function SummaryCard({
   value: number;
 }) {
   return (
-    <div className="rounded-[24px] border border-white/10 bg-black/30 p-5">
+    <div className="flex min-h-[7.5rem] flex-col justify-between rounded-[24px] border border-white/10 bg-black/30 p-5">
       <p className="text-xs uppercase tracking-[0.3em] text-white/38">
         {label}
       </p>
@@ -133,7 +137,7 @@ export function StatusCard({
   accentClassName: string;
 }) {
   return (
-    <div className="rounded-[24px] border border-white/10 bg-black/30 p-5">
+    <div className="flex min-h-[7.5rem] flex-col justify-between rounded-[24px] border border-white/10 bg-black/30 p-5">
       <div className="flex items-center gap-3">
         <span
           aria-hidden="true"
@@ -162,7 +166,7 @@ export function QuickLinkCard({
   return (
     <Link
       href={href}
-      className="group rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:border-white/20 hover:bg-white/[0.04]"
+      className="group flex min-h-[10.25rem] flex-col justify-between rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:border-white/20 hover:bg-white/[0.04]"
     >
       <div className="flex items-center justify-between gap-4">
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/78 transition group-hover:border-white/20 group-hover:text-white">
@@ -171,7 +175,7 @@ export function QuickLinkCard({
         <p className="text-3xl font-black text-white">{count}</p>
       </div>
 
-      <h2 className="mt-5 text-xl font-semibold text-white">{label}</h2>
+      <h2 className="text-xl font-semibold text-white">{label}</h2>
     </Link>
   );
 }

@@ -275,10 +275,7 @@ export default function AdminDashboard({
           onOpenSidebar={() => setIsSidebarOpen(true)}
         />
 
-        <SectionCard
-          id="overview"
-          title="Overview"
-        >
+        <SectionCard id="overview" title="Overview">
           <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)]">
             <div className="grid gap-4 sm:grid-cols-3">
               <SummaryCard label="Bookings" value={bookings.length} />
@@ -310,10 +307,7 @@ export default function AdminDashboard({
           ) : null}
         </SectionCard>
 
-        <SectionCard
-          id="bookings"
-          title="Bookings"
-        >
+        <SectionCard id="bookings" title="Bookings">
           {filteredBookings.length === 0 ? (
             <EmptyState
               label={
@@ -367,10 +361,7 @@ export default function AdminDashboard({
           )}
         </SectionCard>
 
-        <SectionCard
-          id="contacts"
-          title="Contact Submissions"
-        >
+        <SectionCard id="contacts" title="Contact Submissions">
           {filteredContacts.length === 0 ? (
             <EmptyState
               label={
@@ -425,10 +416,7 @@ export default function AdminDashboard({
           )}
         </SectionCard>
 
-        <SectionCard
-          id="newsletters"
-          title="Newsletter"
-        >
+        <SectionCard id="newsletters" title="Newsletter">
           {filteredNewsletters.length === 0 ? (
             <EmptyState
               label={
@@ -483,8 +471,8 @@ function DashboardTopbar({
   onOpenSidebar: () => void;
 }) {
   return (
-    <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6">
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+    <div className="flex min-h-[11rem] rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6">
+      <div className="flex w-full flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-start gap-3">
           <button
             type="button"
@@ -606,7 +594,7 @@ function SidebarPanel({
       className="flex h-full flex-col rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.94),rgba(10,10,10,0.78))] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl"
     >
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-h-[7rem]">
           <p className="text-xs uppercase tracking-[0.35em] text-white/38">
             Menu
           </p>
@@ -684,7 +672,7 @@ function SidebarPanel({
 
 function SummaryCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-[22px] border border-white/10 bg-black/30 p-4">
+    <div className="flex min-h-[6.75rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-4">
       <p className="text-xs uppercase tracking-[0.3em] text-white/38">
         {label}
       </p>
@@ -703,7 +691,7 @@ function StatusCard({
   accentClassName: string;
 }) {
   return (
-    <div className="rounded-[22px] border border-white/10 bg-black/30 p-4">
+    <div className="flex min-h-[6.75rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-4">
       <div className="flex items-center gap-3">
         <span
           aria-hidden="true"
@@ -732,7 +720,7 @@ function SectionCard({
       id={id}
       className="scroll-mt-8 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8"
     >
-      <div className="mb-6">
+      <div className="mb-6 min-h-[7rem]">
         <p className="text-xs uppercase tracking-[0.35em] text-white/38">
           NABU Admin
         </p>

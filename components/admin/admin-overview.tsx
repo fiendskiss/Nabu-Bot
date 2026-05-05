@@ -32,7 +32,7 @@ export default function AdminOverview({
     <div className="grid gap-6">
       <AdminHeaderCard title="Overview" />
 
-      <AdminPanel>
+      <AdminPanel className="min-h-[11.75rem]">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
           <SummaryCard label="Bookings" value={bookings.length} />
           <SummaryCard label="Contacts" value={contacts.length} />
@@ -53,7 +53,6 @@ export default function AdminOverview({
             accentClassName="bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.35)]"
           />
         </div>
-
       </AdminPanel>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
