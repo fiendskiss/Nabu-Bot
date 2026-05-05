@@ -67,7 +67,7 @@ export default function AboutHero() {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </div>
 
-      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[1500px] items-center px-6 pb-6 pt-20 sm:px-8 lg:px-12">
+      <div className="relative mx-auto flex min-h-[100svh] w-full max-w-[1500px] items-center px-6 pb-6 pt-28 sm:px-8 sm:pt-20 lg:px-12">
         <motion.div
           initial="hidden"
           animate={controls}

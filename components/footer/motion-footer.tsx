@@ -498,7 +498,7 @@ export function CinematicFooter({
             NABU
           </div>
 
-          <div className="absolute left-0 top-40 z-10 w-full scale-110 overflow-hidden border-y border-white/10 bg-[#09090f]/55 py-4 shadow-2xl backdrop-blur-md -rotate-2 md:top-24">
+          <div className="absolute left-0 top-24 z-10 w-full scale-110 overflow-hidden border-y border-white/10 bg-[#09090f]/55 py-4 shadow-2xl backdrop-blur-md -rotate-2">
             <div className="flex w-max animate-footer-scroll-marquee text-xs font-bold uppercase tracking-[0.3em] text-slate-300/72 md:text-sm">
               <MarqueeItem />
               <MarqueeItem />

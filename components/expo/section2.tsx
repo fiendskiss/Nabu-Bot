@@ -12,9 +12,9 @@ const expoWords = [
   "SAFETY CHECKS",
 ];
 
-const NAV_OFFSET = "5.75rem";
-const VISIBLE_HEIGHT = `calc(100vh - ${NAV_OFFSET})`;
-const ROW_HEIGHT = `calc((100vh - ${NAV_OFFSET}) / ${expoWords.length})`;
+const NAV_OFFSET = "var(--expo-nav-offset)";
+const VISIBLE_HEIGHT = "var(--expo-visible-height)";
+const ROW_HEIGHT = "var(--expo-row-height)";
 const HIGHLIGHT_TRAVEL = `${(expoWords.length - 1) * 100}%`;
 
 export default function Section2() {
@@ -46,20 +46,20 @@ export default function Section2() {
   });
 
   return (
-    <section className="relative bg-[#050505] text-white">
+    <section className="relative overflow-hidden bg-[#050505] text-white [--expo-nav-offset:4.75rem] [--expo-row-height:calc((100svh_-_var(--expo-nav-offset))_/_5)] [--expo-visible-height:calc(100svh_-_var(--expo-nav-offset))] md:overflow-visible md:[--expo-nav-offset:5.75rem] md:[--expo-row-height:calc((100vh_-_var(--expo-nav-offset))_/_5)] md:[--expo-visible-height:calc(100vh_-_var(--expo-nav-offset))]">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[10%] top-[10%] h-64 w-64 rounded-full bg-[#60A5FA]/10 blur-[140px]" />
         <div className="absolute right-[8%] top-[24%] h-72 w-72 rounded-full bg-[#A855F7]/12 blur-[160px]" />
         <div className="absolute left-1/2 top-[62%] h-80 w-80 -translate-x-1/2 rounded-full bg-[#7C3AED]/8 blur-[180px]" />
       </div>
 
-      <div ref={sectionRef} className="relative min-h-[240vh]">
-        <div className="sticky top-0 h-screen overflow-hidden">
+      <div ref={sectionRef} className="relative min-h-[240svh] md:min-h-[240vh]">
+        <div className="sticky top-0 h-[100svh] overflow-hidden md:h-screen">
           <motion.div
             style={{ opacity: containerOpacity, scale: containerScale }}
             className="relative h-full origin-center"
           >
-            <div className="pointer-events-none absolute right-6 top-[calc(5.75rem-1.25rem)] z-20 sm:right-8 lg:right-12">
+            <div className="pointer-events-none absolute right-4 top-[calc(var(--expo-nav-offset)-0.9rem)] z-20 sm:right-8 md:top-[calc(var(--expo-nav-offset)-1.25rem)] lg:right-12">
               <p className="text-right text-sm uppercase tracking-[0.35em] text-neutral-500">
                 Demo Focus
               </p>
@@ -67,7 +67,7 @@ export default function Section2() {
 
             <motion.div
               style={{ top: NAV_OFFSET, y: glowY }}
-              className="pointer-events-none absolute inset-x-[7%] z-0 h-[24vh] rounded-[44px] bg-[linear-gradient(90deg,rgba(96,165,250,0.14),rgba(168,85,247,0.22),rgba(96,165,250,0.14))] blur-3xl"
+              className="pointer-events-none absolute inset-x-3 z-0 h-[18svh] rounded-[28px] bg-[linear-gradient(90deg,rgba(96,165,250,0.14),rgba(168,85,247,0.22),rgba(96,165,250,0.14))] blur-3xl md:inset-x-[7%] md:h-[24vh] md:rounded-[44px]"
             />
 
             <div
@@ -82,7 +82,7 @@ export default function Section2() {
                 >
                   <span
                     className={cn(
-                      "pb-[0.03em] text-center text-[3.5rem] font-black uppercase leading-none tracking-[-0.08em] transition-colors duration-300 sm:text-[4.9rem] md:text-[6.2rem] lg:text-[7.4rem] xl:text-[8.7rem]",
+                      "max-w-full whitespace-nowrap pb-[0.03em] text-center text-[2.28rem] font-black uppercase leading-none tracking-[-0.035em] transition-colors duration-300 min-[390px]:text-[2.55rem] sm:text-[3.5rem] md:text-[6.2rem] md:tracking-[-0.08em] lg:text-[7.4rem] xl:text-[8.7rem]",
                       index === activeIndex
                         ? "text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.12)]"
                         : "text-[#A7B3FF]/18",
