@@ -30,7 +30,7 @@ export default function AdminSignInCard({
     setMessage("");
 
     const supabase = createClient();
-    const redirectUrl = `${window.location.origin}/auth/confirm?next=/admin`;
+    const redirectUrl = `${window.location.origin}/auth/confirm`;
     const { error } = await supabase.auth.signInWithOtp({
       email: adminEmail,
       options: {
@@ -122,9 +122,8 @@ export default function AdminSignInCard({
       ) : null}
 
       <p className="mt-6 text-xs leading-6 text-white/38">
-        In Supabase, make sure your Site URL and redirect URLs include your
-        local and production domains, and update the magic-link email template
-        to use the SSR token-hash flow.
+        In Supabase, add this production callback to Redirect URLs and make the
+        magic-link template send token_hash to the redirect target.
       </p>
     </div>
   );

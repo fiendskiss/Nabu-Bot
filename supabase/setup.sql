@@ -5,7 +5,11 @@
 -- After this, update the Supabase magic-link email template for SSR:
 -- Authentication -> Email Templates -> Magic Link
 -- Change the URL target to:
--- {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/admin
+-- {{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email&next=/admin
+--
+-- Then add these under Authentication -> URL Configuration -> Redirect URLs:
+-- http://localhost:3000/auth/confirm
+-- https://nabubot.vercel.app/auth/confirm
 
 create table if not exists public.admin_users (
   email text primary key,
