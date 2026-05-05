@@ -109,11 +109,14 @@ export default function AdminDashboard({
       ? entry.email.toLowerCase().includes(normalizedSearchQuery)
       : true,
   );
-  const bookingStatusCounts = {
-    new: bookings.filter((entry) => entry.status === "new").length,
-    in_progress: bookings.filter((entry) => entry.status === "in_progress")
+  const allSubmissions = [...bookings, ...contacts, ...newsletters];
+  const totalStatusCounts = {
+    new: allSubmissions.filter((entry) => entry.status === "new").length,
+    in_progress: allSubmissions.filter(
+      (entry) => entry.status === "in_progress",
+    ).length,
+    completed: allSubmissions.filter((entry) => entry.status === "completed")
       .length,
-    completed: bookings.filter((entry) => entry.status === "completed").length,
   } satisfies Record<SubmissionStatus, number>;
 
   useEffect(() => {
@@ -276,29 +279,39 @@ export default function AdminDashboard({
         />
 
         <SectionCard id="overview" title="Overview">
-          <div className="grid gap-4 xl:grid-cols-2">
-            <div className="grid gap-4 sm:grid-cols-3">
-              <SummaryCard label="Bookings" value={bookings.length} />
-              <SummaryCard label="Contacts" value={contacts.length} />
-              <SummaryCard label="Newsletter" value={newsletters.length} />
+          <div className="grid gap-5 xl:grid-cols-2">
+            <div className="rounded-[22px] border border-white/10 bg-black/20 p-4">
+              <OverviewGroupTitle label="Total Numbers" />
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+                <SummaryCard
+                  label="All Submissions"
+                  value={allSubmissions.length}
+                />
+                <SummaryCard label="Bookings" value={bookings.length} />
+                <SummaryCard label="Contacts" value={contacts.length} />
+                <SummaryCard label="Newsletter" value={newsletters.length} />
+              </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
-              <StatusCard
-                label="New"
-                value={bookingStatusCounts.new}
-                accentClassName="bg-amber-200/90 shadow-[0_0_18px_rgba(253,230,138,0.35)]"
-              />
-              <StatusCard
-                label="In Progress"
-                value={bookingStatusCounts.in_progress}
-                accentClassName="bg-sky-300/85 shadow-[0_0_18px_rgba(125,211,252,0.35)]"
-              />
-              <StatusCard
-                label="Completed"
-                value={bookingStatusCounts.completed}
-                accentClassName="bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.35)]"
-              />
+            <div className="rounded-[22px] border border-white/10 bg-black/20 p-4">
+              <OverviewGroupTitle label="Total Progress" />
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                <StatusCard
+                  label="New"
+                  value={totalStatusCounts.new}
+                  accentClassName="bg-amber-200/90 shadow-[0_0_18px_rgba(253,230,138,0.35)]"
+                />
+                <StatusCard
+                  label="In Progress"
+                  value={totalStatusCounts.in_progress}
+                  accentClassName="bg-sky-300/85 shadow-[0_0_18px_rgba(125,211,252,0.35)]"
+                />
+                <StatusCard
+                  label="Completed"
+                  value={totalStatusCounts.completed}
+                  accentClassName="bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.35)]"
+                />
+              </div>
             </div>
           </div>
 
@@ -730,6 +743,14 @@ function SectionCard({
       </div>
       {children}
     </section>
+  );
+}
+
+function OverviewGroupTitle({ label }: { label: string }) {
+  return (
+    <h3 className="text-xs font-semibold uppercase tracking-[0.32em] text-white/42">
+      {label}
+    </h3>
   );
 }
 

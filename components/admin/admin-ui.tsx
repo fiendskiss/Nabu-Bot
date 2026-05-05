@@ -158,12 +158,10 @@ export function QuickLinkCard({
   href,
   label,
   icon: Icon,
-  count,
 }: {
   href: string;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
-  count: number;
 }) {
   return (
     <Link
@@ -174,7 +172,9 @@ export function QuickLinkCard({
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/78 transition group-hover:border-white/20 group-hover:text-white">
           <Icon className="h-5 w-5" />
         </div>
-        <p className="text-3xl font-black text-white">{count}</p>
+        <span className="text-xs font-semibold uppercase tracking-[0.26em] text-white/36">
+          Open
+        </span>
       </div>
 
       <h2 className="text-xl font-semibold text-white">{label}</h2>
