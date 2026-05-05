@@ -97,7 +97,7 @@ export default function AdminBookingsPage({
             <AdminSearchInput
               id="dashboard-bookings-search"
               label="Search"
-              placeholder="Search contacts, households, organizations, or goals"
+              placeholder="Search name, email, or company"
               value={searchQuery}
               onChange={setSearchQuery}
             />

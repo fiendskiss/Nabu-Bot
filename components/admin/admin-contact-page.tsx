@@ -109,7 +109,7 @@ export default function AdminContactPage({
             <AdminSearchInput
               id="dashboard-contact-search"
               label="Search"
-              placeholder="Search contacts, organizations, subjects, or needs"
+              placeholder="Search name, email, company, subject, or message"
               value={searchQuery}
               onChange={setSearchQuery}
             />
