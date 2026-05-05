@@ -30,10 +30,7 @@ export default function AdminOverview({
 
   return (
     <div className="grid gap-6">
-      <AdminHeaderCard
-        title="Overview"
-        description="Monitor NABU interest at a glance, from demo requests and household inquiries to subscriber growth."
-      />
+      <AdminHeaderCard title="Overview" />
 
       <AdminPanel>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
@@ -57,10 +54,6 @@ export default function AdminOverview({
           />
         </div>
 
-        <div className="mt-5 rounded-[24px] border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/66">
-          Prioritize new NABU conversations, follow up on active setup needs,
-          and keep completed requests visible for team handoff.
-        </div>
       </AdminPanel>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -81,7 +74,6 @@ export default function AdminOverview({
                 key={link.href}
                 href={link.href}
                 label={link.label}
-                description={link.description}
                 icon={link.icon}
                 count={count}
               />

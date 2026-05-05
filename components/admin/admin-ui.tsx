@@ -7,11 +7,9 @@ import SubmissionStatusSelect from "@/components/admin/submission-status-select"
 
 export function AdminHeaderCard({
   title,
-  description,
   action,
 }: {
   title: string;
-  description: string;
   action?: React.ReactNode;
 }) {
   return (
@@ -24,9 +22,6 @@ export function AdminHeaderCard({
           <h1 className="mt-3 text-3xl font-black tracking-[-0.05em] text-white sm:text-[2.8rem]">
             {title}
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-white/62 sm:text-base">
-            {description}
-          </p>
         </div>
 
         {action ? <div className="w-full lg:max-w-sm">{action}</div> : null}
@@ -49,11 +44,9 @@ export function AdminPanel({
 
 export function AdminSidePanel({
   title,
-  description,
   children,
 }: {
   title: string;
-  description?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -66,11 +59,6 @@ export function AdminSidePanel({
           <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-white">
             {title}
           </h2>
-          {description ? (
-            <p className="mt-3 text-sm leading-7 text-white/58">
-              {description}
-            </p>
-          ) : null}
         </div>
 
         <div className="grid gap-4">{children}</div>
@@ -163,13 +151,11 @@ export function StatusCard({
 export function QuickLinkCard({
   href,
   label,
-  description,
   icon: Icon,
   count,
 }: {
   href: string;
   label: string;
-  description: string;
   icon: React.ComponentType<{ className?: string }>;
   count: number;
 }) {
@@ -186,7 +172,6 @@ export function QuickLinkCard({
       </div>
 
       <h2 className="mt-5 text-xl font-semibold text-white">{label}</h2>
-      <p className="mt-2 text-sm leading-6 text-white/58">{description}</p>
     </Link>
   );
 }

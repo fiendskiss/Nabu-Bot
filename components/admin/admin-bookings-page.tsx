@@ -93,7 +93,6 @@ export default function AdminBookingsPage({
       <div className="grid gap-6">
         <AdminHeaderCard
           title="Bookings"
-          description="Review NABU demo requests, understand each household or organization, and move qualified conversations toward a scheduled walkthrough."
           action={
             <AdminSearchInput
               id="dashboard-bookings-search"
@@ -165,7 +164,6 @@ export default function AdminBookingsPage({
       <aside className="xl:sticky xl:top-6">
         <AdminSidePanel
           title="Booking Pipeline"
-          description="Track how many NABU demos need first contact, active coordination, or final closure."
         >
           <StatusCard
             label="New Bookings"

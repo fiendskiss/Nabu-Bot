@@ -278,7 +278,6 @@ export default function AdminDashboard({
         <SectionCard
           id="overview"
           title="Overview"
-          description="Monitor NABU demand, response status, and demo readiness across every incoming channel."
         >
           <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)]">
             <div className="grid gap-4 sm:grid-cols-3">
@@ -306,23 +305,6 @@ export default function AdminDashboard({
             </div>
           </div>
 
-          <div className="mt-5 rounded-[24px] border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/66">
-            {hasSearchQuery ? (
-              <span>
-                Showing matches for{" "}
-                <span className="font-semibold text-white">
-                  &quot;{searchQuery.trim()}&quot;
-                </span>
-                .
-              </span>
-            ) : (
-              <span>
-                Use this view to prioritize NABU demos, household questions,
-                and update-list signups that need timely follow-up.
-              </span>
-            )}
-          </div>
-
           {errorMessage ? (
             <p className="mt-4 text-sm text-rose-300">{errorMessage}</p>
           ) : null}
@@ -331,7 +313,6 @@ export default function AdminDashboard({
         <SectionCard
           id="bookings"
           title="Bookings"
-          description="NABU demo requests with household context, timing, and setup goals."
         >
           {filteredBookings.length === 0 ? (
             <EmptyState
@@ -389,7 +370,6 @@ export default function AdminDashboard({
         <SectionCard
           id="contacts"
           title="Contact Submissions"
-          description="NABU inquiries from families, care teams, partners, and prospective customers."
         >
           {filteredContacts.length === 0 ? (
             <EmptyState
@@ -448,7 +428,6 @@ export default function AdminDashboard({
         <SectionCard
           id="newsletters"
           title="Newsletter"
-          description="People who asked to receive NABU product updates and availability news."
         >
           {filteredNewsletters.length === 0 ? (
             <EmptyState
@@ -525,10 +504,6 @@ function DashboardTopbar({
             <h1 className="mt-3 text-3xl font-black tracking-[-0.05em] text-white sm:text-[2.7rem]">
               Dashboard
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-white/62 sm:text-base">
-              Review NABU demos, inquiries, and subscriber interest from one
-              focused workspace.
-            </p>
           </div>
         </div>
 
@@ -641,10 +616,6 @@ function SidebarPanel({
           >
             Dashboard
           </h2>
-          <p className="mt-3 text-sm leading-6 text-white/58">
-            Move through NABU demos, inquiries, and audience updates without
-            losing follow-up context.
-          </p>
         </div>
 
         {isMobile ? (
@@ -750,12 +721,10 @@ function StatusCard({
 function SectionCard({
   id,
   title,
-  description,
   children,
 }: {
   id: string;
   title: string;
-  description: string;
   children: React.ReactNode;
 }) {
   return (
@@ -770,7 +739,6 @@ function SectionCard({
         <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">
           {title}
         </h2>
-        <p className="mt-3 text-sm leading-7 text-white/62">{description}</p>
       </div>
       {children}
     </section>

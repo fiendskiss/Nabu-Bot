@@ -91,7 +91,6 @@ export default function AdminNewsletterPage({
       <div className="grid gap-6">
         <AdminHeaderCard
           title="Newsletter"
-          description="Review people who asked to stay close to NABU updates, product milestones, and availability announcements."
           action={
             <AdminSearchInput
               id="dashboard-newsletter-search"
@@ -149,10 +148,7 @@ export default function AdminNewsletterPage({
       </div>
 
       <aside className="xl:sticky xl:top-6">
-        <AdminSidePanel
-          title="Subscribers"
-          description="Keep the NABU audience count visible while reviewing new signups."
-        >
+        <AdminSidePanel title="Subscribers">
           <SummaryCard label="Total Subscribed" value={totalSubscribed} />
         </AdminSidePanel>
       </aside>

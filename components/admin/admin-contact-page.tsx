@@ -105,7 +105,6 @@ export default function AdminContactPage({
       <div className="grid gap-6">
         <AdminHeaderCard
           title="Contact"
-          description="Triage NABU questions from families, care teams, and partners so every message gets a clear next step."
           action={
             <AdminSearchInput
               id="dashboard-contact-search"
@@ -176,7 +175,6 @@ export default function AdminContactPage({
       <aside className="xl:sticky xl:top-6">
         <AdminSidePanel
           title="Contact Pipeline"
-          description="Watch response status across new inquiries, active follow-ups, and resolved NABU support conversations."
         >
           <StatusCard
             label="New Contacts"
