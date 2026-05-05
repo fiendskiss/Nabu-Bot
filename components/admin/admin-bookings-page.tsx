@@ -89,8 +89,8 @@ export default function AdminBookingsPage({
   };
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start">
-      <div className="grid gap-6">
+    <div className="grid w-full min-w-0 gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24vw)] 2xl:grid-cols-[minmax(0,1fr)_minmax(20rem,26vw)] xl:items-start">
+      <div className="grid min-w-0 gap-5">
         <AdminHeaderCard
           title="Bookings"
           action={
@@ -123,7 +123,7 @@ export default function AdminBookingsPage({
             {filteredBookings.map((entry) => (
               <article
                 key={entry.id}
-                className="grid gap-6 rounded-[24px] border border-white/10 bg-black/30 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.2)] xl:grid-cols-[minmax(0,1fr)_16rem] xl:items-start"
+                className="grid gap-5 rounded-[24px] border border-white/10 bg-black/30 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.2)] xl:grid-cols-[minmax(0,1fr)_minmax(15rem,20vw)] xl:items-start"
               >
                 <div className="min-w-0 space-y-3">
                   <div>
@@ -161,7 +161,7 @@ export default function AdminBookingsPage({
         )}
       </div>
 
-      <aside className="xl:sticky xl:top-6">
+      <aside className="min-w-0 xl:sticky xl:top-5">
         <AdminSidePanel title="Booking Pipeline">
           <StatusCard
             label="New Bookings"

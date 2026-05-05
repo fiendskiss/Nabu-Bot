@@ -87,8 +87,8 @@ export default function AdminNewsletterPage({
   };
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start">
-      <div className="grid gap-6">
+    <div className="grid w-full min-w-0 gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24vw)] 2xl:grid-cols-[minmax(0,1fr)_minmax(20rem,26vw)] xl:items-start">
+      <div className="grid min-w-0 gap-5">
         <AdminHeaderCard
           title="Newsletter"
           action={
@@ -121,7 +121,7 @@ export default function AdminNewsletterPage({
             {filteredNewsletters.map((entry) => (
               <article
                 key={entry.id}
-                className="grid gap-6 rounded-[24px] border border-white/10 bg-black/30 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.2)] xl:grid-cols-[minmax(0,1fr)_16rem] xl:items-start"
+                className="grid gap-5 rounded-[24px] border border-white/10 bg-black/30 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.2)] xl:grid-cols-[minmax(0,1fr)_minmax(15rem,20vw)] xl:items-start"
               >
                 <div className="min-w-0">
                   <h2 className="text-lg font-semibold text-white">
@@ -147,7 +147,7 @@ export default function AdminNewsletterPage({
         )}
       </div>
 
-      <aside className="xl:sticky xl:top-6">
+      <aside className="min-w-0 xl:sticky xl:top-5">
         <AdminSidePanel title="Subscribers">
           <SummaryCard label="Total Subscribed" value={totalSubscribed} />
         </AdminSidePanel>

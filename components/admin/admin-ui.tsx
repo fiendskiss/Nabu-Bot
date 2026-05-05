@@ -13,18 +13,20 @@ export function AdminHeaderCard({
   action?: React.ReactNode;
 }) {
   return (
-    <section className="flex min-h-[11.25rem] rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:min-h-[12rem] sm:p-8">
-      <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <section className="flex min-h-[9.25rem] w-full rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6">
+      <div className="flex w-full flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.35em] text-white/38">
             Admin Dashboard
           </p>
-          <h1 className="mt-3 text-3xl font-black tracking-[-0.05em] text-white sm:text-[2.8rem]">
+          <h1 className="mt-3 text-3xl font-black tracking-[-0.05em] text-white sm:text-[2.6rem]">
             {title}
           </h1>
         </div>
 
-        {action ? <div className="w-full lg:max-w-sm">{action}</div> : null}
+        {action ? (
+          <div className="w-full min-w-0 lg:w-[min(42vw,34rem)]">{action}</div>
+        ) : null}
       </div>
     </section>
   );
@@ -39,7 +41,7 @@ export function AdminPanel({
 }) {
   return (
     <section
-      className={`rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8 ${className}`}
+      className={`w-full rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6 ${className}`}
     >
       {children}
     </section>
@@ -56,11 +58,11 @@ export function AdminSidePanel({
   return (
     <AdminPanel>
       <div className="space-y-5">
-        <div className="min-h-[7rem]">
+        <div>
           <p className="text-xs uppercase tracking-[0.3em] text-white/38">
             Summary
           </p>
-          <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-white">
+          <h2 className="mt-3 text-[1.65rem] font-black tracking-[-0.04em] text-white">
             {title}
           </h2>
         </div>
@@ -118,7 +120,7 @@ export function SummaryCard({
   value: number;
 }) {
   return (
-    <div className="flex min-h-[7.5rem] flex-col justify-between rounded-[24px] border border-white/10 bg-black/30 p-5">
+    <div className="flex min-h-[7rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-5">
       <p className="text-xs uppercase tracking-[0.3em] text-white/38">
         {label}
       </p>
@@ -137,7 +139,7 @@ export function StatusCard({
   accentClassName: string;
 }) {
   return (
-    <div className="flex min-h-[7.5rem] flex-col justify-between rounded-[24px] border border-white/10 bg-black/30 p-5">
+    <div className="flex min-h-[7rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-5">
       <div className="flex items-center gap-3">
         <span
           aria-hidden="true"
@@ -166,7 +168,7 @@ export function QuickLinkCard({
   return (
     <Link
       href={href}
-      className="group flex min-h-[10.25rem] flex-col justify-between rounded-[24px] border border-white/10 bg-black/30 p-5 transition hover:border-white/20 hover:bg-white/[0.04]"
+      className="group flex min-h-[8.75rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-5 transition hover:border-white/20 hover:bg-white/[0.04]"
     >
       <div className="flex items-center justify-between gap-4">
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/78 transition group-hover:border-white/20 group-hover:text-white">
@@ -194,7 +196,7 @@ export function SubmissionActions({
   hideStatusControl?: boolean;
 }) {
   return (
-    <div className="flex w-full flex-col items-stretch gap-3 2xl:min-w-56">
+    <div className="flex w-full flex-col items-stretch gap-3">
       {hideStatusControl ? null : (
         <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-3 shadow-[0_18px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl">
           <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/42">

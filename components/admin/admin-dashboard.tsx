@@ -259,7 +259,7 @@ export default function AdminDashboard({
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[280px,minmax(0,1fr)] lg:items-start">
+    <div className="grid w-full min-w-0 gap-5 lg:grid-cols-[14rem_minmax(0,1fr)] lg:items-start">
       <DashboardSidebar
         links={dashboardSidebarLinks}
         activeSection={activeSection}
@@ -268,7 +268,7 @@ export default function AdminDashboard({
         onSectionSelect={setActiveSection}
       />
 
-      <div className="grid gap-8">
+      <div className="grid min-w-0 gap-5">
         <DashboardTopbar
           searchQuery={searchQuery}
           onSearchQueryChange={setSearchQuery}
@@ -276,7 +276,7 @@ export default function AdminDashboard({
         />
 
         <SectionCard id="overview" title="Overview">
-          <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)]">
+          <div className="grid gap-4 xl:grid-cols-2">
             <div className="grid gap-4 sm:grid-cols-3">
               <SummaryCard label="Bookings" value={bookings.length} />
               <SummaryCard label="Contacts" value={contacts.length} />
@@ -321,9 +321,9 @@ export default function AdminDashboard({
               {filteredBookings.map((entry) => (
                 <article
                   key={entry.id}
-                  className="rounded-[24px] border border-white/10 bg-black/30 p-5"
+                  className="rounded-[22px] border border-white/10 bg-black/30 p-5"
                 >
-                  <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(15rem,20vw)] xl:items-start">
                     <div className="space-y-3">
                       <div>
                         <h3 className="text-xl font-semibold text-white">
@@ -341,7 +341,7 @@ export default function AdminDashboard({
                         <span>{formatPreferredTime(entry.preferred_time)}</span>
                       </div>
 
-                      <p className="max-w-3xl text-sm leading-7 text-white/74">
+                      <p className="text-sm leading-7 text-white/74">
                         {entry.focus}
                       </p>
                     </div>
@@ -375,9 +375,9 @@ export default function AdminDashboard({
               {filteredContacts.map((entry) => (
                 <article
                   key={entry.id}
-                  className="rounded-[24px] border border-white/10 bg-black/30 p-5"
+                  className="rounded-[22px] border border-white/10 bg-black/30 p-5"
                 >
-                  <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(15rem,20vw)] xl:items-start">
                     <div className="space-y-3">
                       <div>
                         <h3 className="text-xl font-semibold text-white">
@@ -394,7 +394,7 @@ export default function AdminDashboard({
                         {formatDate(entry.created_at)}
                       </div>
 
-                      <p className="max-w-3xl text-sm leading-7 text-white/74">
+                      <p className="text-sm leading-7 text-white/74">
                         {entry.message}
                       </p>
                     </div>
@@ -430,7 +430,7 @@ export default function AdminDashboard({
               {filteredNewsletters.map((entry) => (
                 <article
                   key={entry.id}
-                  className="flex flex-col gap-3 rounded-[24px] border border-white/10 bg-black/30 p-5 lg:flex-row lg:items-center lg:justify-between"
+                  className="grid gap-5 rounded-[22px] border border-white/10 bg-black/30 p-5 xl:grid-cols-[minmax(0,1fr)_minmax(15rem,20vw)] xl:items-start"
                 >
                   <div>
                     <h3 className="text-lg font-semibold text-white">
@@ -471,7 +471,7 @@ function DashboardTopbar({
   onOpenSidebar: () => void;
 }) {
   return (
-    <div className="flex min-h-[11rem] rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6">
+    <div className="flex min-h-[9.25rem] rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6">
       <div className="flex w-full flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-start gap-3">
           <button
@@ -495,7 +495,7 @@ function DashboardTopbar({
           </div>
         </div>
 
-        <div className="w-full lg:max-w-sm">
+        <div className="w-full min-w-0 lg:w-[min(42vw,34rem)]">
           <label
             htmlFor="dashboard-search"
             className="mb-2 block text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/42 lg:text-right"
@@ -537,7 +537,7 @@ function DashboardSidebar({
 }) {
   return (
     <>
-      <aside className="hidden lg:sticky lg:top-6 lg:block lg:h-[calc(100vh-3rem)]">
+      <aside className="hidden lg:sticky lg:top-5 lg:block lg:h-[calc(100vh-2.5rem)]">
         <SidebarPanel
           links={links}
           activeSection={activeSection}
@@ -594,7 +594,7 @@ function SidebarPanel({
       className="flex h-full flex-col rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.94),rgba(10,10,10,0.78))] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl"
     >
       <div className="flex items-start justify-between gap-4">
-        <div className="min-h-[7rem]">
+        <div>
           <p className="text-xs uppercase tracking-[0.35em] text-white/38">
             Menu
           </p>
@@ -672,7 +672,7 @@ function SidebarPanel({
 
 function SummaryCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex min-h-[6.75rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-4">
+    <div className="flex min-h-[6.5rem] flex-col justify-between rounded-[20px] border border-white/10 bg-black/30 p-4">
       <p className="text-xs uppercase tracking-[0.3em] text-white/38">
         {label}
       </p>
@@ -691,7 +691,7 @@ function StatusCard({
   accentClassName: string;
 }) {
   return (
-    <div className="flex min-h-[6.75rem] flex-col justify-between rounded-[22px] border border-white/10 bg-black/30 p-4">
+    <div className="flex min-h-[6.5rem] flex-col justify-between rounded-[20px] border border-white/10 bg-black/30 p-4">
       <div className="flex items-center gap-3">
         <span
           aria-hidden="true"
@@ -718,13 +718,13 @@ function SectionCard({
   return (
     <section
       id={id}
-      className="scroll-mt-8 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-8"
+      className="scroll-mt-6 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.84),rgba(10,10,10,0.68))] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl sm:p-6"
     >
-      <div className="mb-6 min-h-[7rem]">
+      <div className="mb-5">
         <p className="text-xs uppercase tracking-[0.35em] text-white/38">
           NABU Admin
         </p>
-        <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">
+        <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-white sm:text-[2rem]">
           {title}
         </h2>
       </div>
@@ -747,7 +747,7 @@ function Actions({
   const statusAccentClassName = getStatusAccentClassName(value);
 
   return (
-    <div className="flex flex-col items-stretch gap-3 lg:min-w-44">
+    <div className="flex w-full flex-col items-stretch gap-3">
       <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-3 shadow-[0_18px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl">
         <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/42">
           Progress

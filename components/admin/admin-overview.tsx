@@ -29,10 +29,10 @@ export default function AdminOverview({
   };
 
   return (
-    <div className="grid gap-6">
+    <div className="grid w-full min-w-0 gap-5">
       <AdminHeaderCard title="Overview" />
 
-      <AdminPanel className="min-h-[11.75rem]">
+      <AdminPanel>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
           <SummaryCard label="Bookings" value={bookings.length} />
           <SummaryCard label="Contacts" value={contacts.length} />
@@ -55,7 +55,7 @@ export default function AdminOverview({
         </div>
       </AdminPanel>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {adminSidebarLinks
           .filter((link) => link.href.startsWith("/admin/"))
           .map((link) => {

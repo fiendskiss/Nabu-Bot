@@ -82,7 +82,7 @@ function AdminShellLayout({
           </p>
         </header>
 
-        <main className="flex min-w-0 flex-1 flex-col gap-6 px-4 py-4 md:px-6 md:py-6">
+        <main className="flex w-full min-w-0 flex-1 flex-col items-stretch gap-5 px-4 py-4 md:px-5 md:py-5">
           {children}
         </main>
       </div>
