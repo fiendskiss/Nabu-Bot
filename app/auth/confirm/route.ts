@@ -1,6 +1,6 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
+import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
 
 function getSafeNextPath(nextValue: string | null) {
   if (!nextValue || !nextValue.startsWith("/")) {
@@ -24,13 +24,29 @@ export async function GET(request: NextRequest) {
   redirectTo.searchParams.delete("code");
   redirectTo.searchParams.delete("next");
 
-  const supabase = await createClient();
+  let response = NextResponse.redirect(redirectTo);
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options);
+          });
+        },
+      },
+    },
+  );
 
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      return NextResponse.redirect(redirectTo);
+      return response;
     }
   }
 
@@ -41,12 +57,14 @@ export async function GET(request: NextRequest) {
     });
 
     if (!error) {
-      return NextResponse.redirect(redirectTo);
+      return response;
     }
   }
 
   redirectTo.pathname = "/admin/sign-in";
   redirectTo.searchParams.set("error", "auth");
 
-  return NextResponse.redirect(redirectTo);
+  response = NextResponse.redirect(redirectTo);
+
+  return response;
 }
