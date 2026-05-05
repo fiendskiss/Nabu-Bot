@@ -43,6 +43,8 @@ export default function RadialOrbitalTimeline({
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const rotationFrameRef = useRef<number | null>(null);
+  const lastRotationTimeRef = useRef<number | null>(null);
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === containerRef.current || e.target === orbitRef.current) {
@@ -93,18 +95,32 @@ export default function RadialOrbitalTimeline({
   };
 
   useEffect(() => {
-    let rotationTimer: ReturnType<typeof setInterval>;
-
-    if (autoRotate && viewMode === "orbital") {
-      rotationTimer = setInterval(() => {
-        setRotationAngle((prev) => {
-          const newAngle = (prev + 0.3) % 360;
-          return Number(newAngle.toFixed(3));
-        });
-      }, 50);
+    if (!autoRotate || viewMode !== "orbital") {
+      lastRotationTimeRef.current = null;
+      return;
     }
 
-    return () => { clearInterval(rotationTimer); };
+    const rotate = (time: number) => {
+      if (lastRotationTimeRef.current === null) {
+        lastRotationTimeRef.current = time;
+      }
+
+      const elapsed = time - lastRotationTimeRef.current;
+      lastRotationTimeRef.current = time;
+
+      setRotationAngle((prev) => roundStyleNumber((prev + elapsed * 0.006) % 360));
+      rotationFrameRef.current = window.requestAnimationFrame(rotate);
+    };
+
+    rotationFrameRef.current = window.requestAnimationFrame(rotate);
+
+    return () => {
+      if (rotationFrameRef.current !== null) {
+        window.cancelAnimationFrame(rotationFrameRef.current);
+      }
+      rotationFrameRef.current = null;
+      lastRotationTimeRef.current = null;
+    };
   }, [autoRotate, viewMode]);
 
   useEffect(() => {
@@ -218,7 +234,9 @@ export default function RadialOrbitalTimeline({
               <div
                 key={item.id}
                 ref={(el: HTMLDivElement | null) => { nodeRefs.current[item.id] = el; }}
-                className="absolute transition-all duration-700 cursor-pointer"
+                className={`absolute cursor-pointer ${
+                  autoRotate ? "transition-opacity duration-300" : "transition-all duration-700"
+                }`}
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px)`,
                   zIndex: isExpanded ? 200 : position.zIndex,

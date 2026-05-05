@@ -32,7 +32,7 @@ export default function AdminOverview({
     <div className="grid gap-6">
       <AdminHeaderCard
         title="Overview"
-        description="Your dashboard menu is now a true sidebar, and each admin area opens as its own page for faster navigation."
+        description="Monitor NABU interest at a glance, from demo requests and household inquiries to subscriber growth."
       />
 
       <AdminPanel>
@@ -58,8 +58,8 @@ export default function AdminOverview({
         </div>
 
         <div className="mt-5 rounded-[24px] border border-white/10 bg-black/25 px-4 py-3 text-sm text-white/66">
-          Use the sidebar to move between pages, or jump directly into the
-          sections below to manage incoming submissions.
+          Prioritize new NABU conversations, follow up on active setup needs,
+          and keep completed requests visible for team handoff.
         </div>
       </AdminPanel>
 

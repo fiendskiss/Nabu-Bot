@@ -105,12 +105,12 @@ export default function AdminContactPage({
       <div className="grid gap-6">
         <AdminHeaderCard
           title="Contact"
-          description="Read contact form submissions, track response progress, and remove handled messages."
+          description="Triage NABU questions from families, care teams, and partners so every message gets a clear next step."
           action={
             <AdminSearchInput
               id="dashboard-contact-search"
               label="Search"
-              placeholder="Search names, emails, subjects, or message text"
+              placeholder="Search contacts, organizations, subjects, or needs"
               value={searchQuery}
               onChange={setSearchQuery}
             />
@@ -128,7 +128,7 @@ export default function AdminContactPage({
             label={
               hasSearchQuery
                 ? `No contact submissions match "${deferredSearchQuery.trim()}".`
-                : "No contact messages yet."
+                : "No NABU contact messages need attention right now."
             }
           />
         ) : (
@@ -176,7 +176,7 @@ export default function AdminContactPage({
       <aside className="xl:sticky xl:top-6">
         <AdminSidePanel
           title="Contact Pipeline"
-          description="Keep live response totals visible while triaging incoming messages."
+          description="Watch response status across new inquiries, active follow-ups, and resolved NABU support conversations."
         >
           <StatusCard
             label="New Contacts"

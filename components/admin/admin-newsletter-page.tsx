@@ -91,12 +91,12 @@ export default function AdminNewsletterPage({
       <div className="grid gap-6">
         <AdminHeaderCard
           title="Newsletter"
-          description="Manage email signups collected from the footer subscription flow."
+          description="Review people who asked to stay close to NABU updates, product milestones, and availability announcements."
           action={
             <AdminSearchInput
               id="dashboard-newsletter-search"
               label="Search"
-              placeholder="Search subscriber emails"
+              placeholder="Search NABU subscriber emails"
               value={searchQuery}
               onChange={setSearchQuery}
             />
@@ -114,7 +114,7 @@ export default function AdminNewsletterPage({
             label={
               hasSearchQuery
                 ? `No newsletter submissions match "${deferredSearchQuery.trim()}".`
-                : "No newsletter subscribers yet."
+                : "No one has joined the NABU update list yet."
             }
           />
         ) : (
@@ -151,7 +151,7 @@ export default function AdminNewsletterPage({
       <aside className="xl:sticky xl:top-6">
         <AdminSidePanel
           title="Subscribers"
-          description="Keep the current subscriber total visible while reviewing signups."
+          description="Keep the NABU audience count visible while reviewing new signups."
         >
           <SummaryCard label="Total Subscribed" value={totalSubscribed} />
         </AdminSidePanel>

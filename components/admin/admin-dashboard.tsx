@@ -278,7 +278,7 @@ export default function AdminDashboard({
         <SectionCard
           id="overview"
           title="Overview"
-          description="The dashboard opens here first so you can see pipeline health, totals, and booking progress immediately."
+          description="Monitor NABU demand, response status, and demo readiness across every incoming channel."
         >
           <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr),minmax(0,1fr)]">
             <div className="grid gap-4 sm:grid-cols-3">
@@ -317,8 +317,8 @@ export default function AdminDashboard({
               </span>
             ) : (
               <span>
-                Use the left sidebar to jump sections, and the top-right search
-                to find names or emails quickly.
+                Use this view to prioritize NABU demos, household questions,
+                and update-list signups that need timely follow-up.
               </span>
             )}
           </div>
@@ -331,14 +331,14 @@ export default function AdminDashboard({
         <SectionCard
           id="bookings"
           title="Bookings"
-          description="Demo requests from the public booking form."
+          description="NABU demo requests with household context, timing, and setup goals."
         >
           {filteredBookings.length === 0 ? (
             <EmptyState
               label={
                 hasSearchQuery
                   ? `No booking requests match "${searchQuery.trim()}".`
-                  : "No booking requests yet."
+                  : "No NABU demo requests are waiting for review."
               }
             />
           ) : (
@@ -389,14 +389,14 @@ export default function AdminDashboard({
         <SectionCard
           id="contacts"
           title="Contact Submissions"
-          description="Messages sent from the contact page."
+          description="NABU inquiries from families, care teams, partners, and prospective customers."
         >
           {filteredContacts.length === 0 ? (
             <EmptyState
               label={
                 hasSearchQuery
                   ? `No contact submissions match "${searchQuery.trim()}".`
-                  : "No contact messages yet."
+                  : "No NABU contact messages need attention right now."
               }
             />
           ) : (
@@ -448,14 +448,14 @@ export default function AdminDashboard({
         <SectionCard
           id="newsletters"
           title="Newsletter"
-          description="Emails collected from the footer subscription flow."
+          description="People who asked to receive NABU product updates and availability news."
         >
           {filteredNewsletters.length === 0 ? (
             <EmptyState
               label={
                 hasSearchQuery
                   ? `No newsletter submissions match "${searchQuery.trim()}".`
-                  : "No newsletter subscribers yet."
+                  : "No one has joined the NABU update list yet."
               }
             />
           ) : (
@@ -526,8 +526,8 @@ function DashboardTopbar({
               Dashboard
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-white/62 sm:text-base">
-              Search records quickly and jump between sections from the
-              sidebar.
+              Review NABU demos, inquiries, and subscriber interest from one
+              focused workspace.
             </p>
           </div>
         </div>
@@ -549,7 +549,7 @@ function DashboardTopbar({
               type="search"
               value={searchQuery}
               onChange={(event) => onSearchQueryChange(event.target.value)}
-              placeholder="Search names or emails"
+              placeholder="Search NABU contacts or emails"
               className="w-full rounded-[20px] border border-white/12 bg-black/35 py-3 pl-11 pr-4 font-sans text-sm text-white placeholder:text-white/28 outline-none transition focus:border-white/28"
             />
           </div>
@@ -642,8 +642,8 @@ function SidebarPanel({
             Dashboard
           </h2>
           <p className="mt-3 text-sm leading-6 text-white/58">
-            Jump between sections, search records, and manage submissions from
-            one place.
+            Move through NABU demos, inquiries, and audience updates without
+            losing follow-up context.
           </p>
         </div>
 
@@ -765,7 +765,7 @@ function SectionCard({
     >
       <div className="mb-6">
         <p className="text-xs uppercase tracking-[0.35em] text-white/38">
-          Dashboard Section
+          NABU Admin
         </p>
         <h2 className="mt-3 text-2xl font-black tracking-[-0.04em] text-white sm:text-3xl">
           {title}

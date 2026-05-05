@@ -25,24 +25,24 @@ export const adminSidebarLinks = [
     href: "/admin",
     label: "Overview",
     icon: LayoutDashboard,
-    description: "See totals, pipeline health, and quick admin shortcuts.",
+    description: "See NABU demand, follow-up status, and quick admin shortcuts.",
   },
   {
     href: "/admin/bookings",
     label: "Bookings",
     icon: CalendarDays,
-    description: "Review demo and booking requests from the public form.",
+    description: "Review NABU demo requests and planned walkthroughs.",
   },
   {
     href: "/admin/contact",
     label: "Contact",
     icon: MessageSquareText,
-    description: "Read and manage messages sent from the contact page.",
+    description: "Manage NABU questions, partner notes, and support needs.",
   },
   {
     href: "/admin/newsletter",
     label: "Newsletter",
     icon: Mail,
-    description: "Manage email signups collected from the site footer.",
+    description: "Track people waiting for NABU news and launch updates.",
   },
 ] satisfies AdminNavLink[];

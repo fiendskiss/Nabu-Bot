@@ -31,7 +31,12 @@ export default function ExpoSectionHeader({
       <h2 className="mt-4 text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-[3.1rem] lg:text-[3.9rem]">
         {title}
       </h2>
-      <p className="mt-5 max-w-2xl text-base leading-7 text-[#D6DCF8]/72 sm:text-[1.05rem]">
+      <p
+        className={cn(
+          "mt-5 max-w-2xl text-base leading-7 text-[#D6DCF8]/72 sm:text-[1.05rem]",
+          align === "center" && "mx-auto",
+        )}
+      >
         {description}
       </p>
     </div>

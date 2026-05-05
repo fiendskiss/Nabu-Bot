@@ -47,7 +47,7 @@ export default function DefaultDemo() {
 			alt: 'NABU expo large-format event billboard',
 		},
 		{
-			src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1778002899/maneken-41AU090_oxyhuq.jpg',
 			alt: 'Open venue walkway for the NABU expo',
 		},
 		{
@@ -59,7 +59,7 @@ export default function DefaultDemo() {
 			alt: 'NABU expo printed event poster',
 		},
 		{
-			src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1280&h=720&fit=crop&crop=entropy&auto=format&q=80',
+			src: 'https://res.cloudinary.com/dcmj7quyv/image/upload/v1778003490/copy_of_maneken-11usa087_ukxtet_719d22.jpg',
 			alt: 'Campus path leading to the NABU expo venue',
 		},
 	];

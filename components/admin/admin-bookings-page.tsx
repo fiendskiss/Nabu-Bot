@@ -93,12 +93,12 @@ export default function AdminBookingsPage({
       <div className="grid gap-6">
         <AdminHeaderCard
           title="Bookings"
-          description="Review demo requests and update each booking as the team works through the pipeline."
+          description="Review NABU demo requests, understand each household or organization, and move qualified conversations toward a scheduled walkthrough."
           action={
             <AdminSearchInput
               id="dashboard-bookings-search"
               label="Search"
-              placeholder="Search names, emails, companies, or focus"
+              placeholder="Search contacts, households, organizations, or goals"
               value={searchQuery}
               onChange={setSearchQuery}
             />
@@ -116,7 +116,7 @@ export default function AdminBookingsPage({
             label={
               hasSearchQuery
                 ? `No booking requests match "${deferredSearchQuery.trim()}".`
-                : "No booking requests yet."
+                : "No NABU demo requests are waiting for review."
             }
           />
         ) : (
@@ -165,7 +165,7 @@ export default function AdminBookingsPage({
       <aside className="xl:sticky xl:top-6">
         <AdminSidePanel
           title="Booking Pipeline"
-          description="Keep live status totals visible while you work through incoming requests."
+          description="Track how many NABU demos need first contact, active coordination, or final closure."
         >
           <StatusCard
             label="New Bookings"
