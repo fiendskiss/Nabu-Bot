@@ -8,14 +8,28 @@ import ExpoSectionHeader from "@/components/expo/section-header";
 export default function DefaultDemo() {
 
 	React.useEffect( () => {
+        const shouldUseNativeScroll =
+            window.matchMedia('(max-width: 767px)').matches ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+        if (shouldUseNativeScroll) {
+            return
+        }
+
         const lenis = new Lenis()
+        let frameId = 0
        
         function raf(time: number) {
             lenis.raf(time)
-            requestAnimationFrame(raf)
+            frameId = requestAnimationFrame(raf)
         }
 
-        requestAnimationFrame(raf)
+        frameId = requestAnimationFrame(raf)
+
+        return () => {
+            cancelAnimationFrame(frameId)
+            lenis.destroy()
+        }
     },[])
 
 
