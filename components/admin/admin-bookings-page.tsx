@@ -349,7 +349,7 @@ function FilterButton({
       className={cn(
         "min-h-11 rounded-[16px] border px-4 text-xs font-bold uppercase tracking-[0.16em] transition",
         isActive
-          ? "border-red-400 bg-red-500 text-white"
+          ? "border-violet-300/40 bg-[linear-gradient(135deg,#60A5FA_0%,#7C3AED_55%,#A855F7_100%)] text-white shadow-[0_16px_38px_rgba(124,58,237,0.28)]"
           : "border-white/10 bg-white/[0.04] text-white/54 hover:border-white/20 hover:bg-white/[0.08] hover:text-white",
       )}
     >
@@ -446,7 +446,7 @@ function BookingDetailsDialog({
                   className={cn(
                     "min-h-10 rounded-full border px-4 text-xs font-bold uppercase tracking-[0.16em] transition disabled:cursor-not-allowed disabled:opacity-60",
                     draftStatus === status
-                      ? "border-blue-300/40 bg-blue-400/14 text-blue-200"
+                      ? "border-violet-300/45 bg-violet-400/14 text-violet-100 shadow-[0_10px_30px_rgba(124,58,237,0.18)]"
                       : "border-white/10 bg-transparent text-white/42 hover:border-white/20 hover:text-white/78",
                   )}
                 >
@@ -461,7 +461,7 @@ function BookingDetailsDialog({
               type="button"
               disabled={isBusy}
               onClick={onSave}
-              className="min-h-14 rounded-[18px] bg-red-500 px-5 text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-red-400 disabled:cursor-not-allowed disabled:opacity-60"
+              className="min-h-14 rounded-[18px] bg-[linear-gradient(135deg,#60A5FA_0%,#7C3AED_55%,#A855F7_100%)] px-5 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_18px_44px_rgba(124,58,237,0.26)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isBusy ? "Saving..." : "Save Changes"}
             </button>
