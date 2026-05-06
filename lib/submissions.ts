@@ -34,7 +34,7 @@ export function getStatusAccentClassName(value: SubmissionStatus) {
     case "pending":
       return "bg-yellow-300 shadow-[0_0_18px_rgba(253,224,71,0.42)]";
     default:
-      return "bg-white/80 shadow-[0_0_18px_rgba(255,255,255,0.28)]";
+      return "bg-fuchsia-300 shadow-[0_0_22px_rgba(217,70,239,0.55)]";
   }
 }
 
@@ -49,7 +49,7 @@ export function getStatusBadgeClassName(value: SubmissionStatus) {
     case "pending":
       return "border-yellow-300/25 bg-yellow-300/10 text-yellow-200";
     default:
-      return "border-white/18 bg-white/[0.06] text-white/82";
+      return "border-fuchsia-300/35 bg-fuchsia-400/14 text-fuchsia-100 shadow-[0_0_24px_rgba(217,70,239,0.14)]";
   }
 }
 
