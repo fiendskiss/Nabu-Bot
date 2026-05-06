@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import {
+  formatStatusLabel,
+  getStatusAccentClassName,
   submissionStatuses,
   type SubmissionStatus,
 } from "@/lib/submissions";
@@ -115,22 +117,4 @@ export default function SubmissionStatusSelect({
       ) : null}
     </div>
   );
-}
-
-function formatStatusLabel(value: SubmissionStatus) {
-  return value
-    .split("_")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
-function getStatusAccentClassName(value: SubmissionStatus) {
-  switch (value) {
-    case "completed":
-      return "bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.45)]";
-    case "in_progress":
-      return "bg-sky-300/85 shadow-[0_0_18px_rgba(125,211,252,0.45)]";
-    default:
-      return "bg-amber-200/90 shadow-[0_0_18px_rgba(253,230,138,0.42)]";
-  }
 }

@@ -19,6 +19,7 @@ import {
   type ContactSubmissionRecord,
   type NewsletterSubmissionRecord,
   type SubmissionStatus,
+  getStatusCounts,
   submissionStatuses,
 } from "@/lib/submissions";
 import AdminSignOutButton from "@/components/admin/admin-sign-out-button";
@@ -110,14 +111,7 @@ export default function AdminDashboard({
       : true,
   );
   const allSubmissions = [...bookings, ...contacts, ...newsletters];
-  const totalStatusCounts = {
-    new: allSubmissions.filter((entry) => entry.status === "new").length,
-    in_progress: allSubmissions.filter(
-      (entry) => entry.status === "in_progress",
-    ).length,
-    completed: allSubmissions.filter((entry) => entry.status === "completed")
-      .length,
-  } satisfies Record<SubmissionStatus, number>;
+  const totalStatusCounts = getStatusCounts(allSubmissions);
 
   useEffect(() => {
     const syncActiveSectionFromHash = () => {
@@ -295,22 +289,15 @@ export default function AdminDashboard({
 
             <div className="rounded-[22px] border border-white/10 bg-black/20 p-4">
               <OverviewGroupTitle label="Total Progress" />
-              <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                <StatusCard
-                  label="New"
-                  value={totalStatusCounts.new}
-                  accentClassName="bg-amber-200/90 shadow-[0_0_18px_rgba(253,230,138,0.35)]"
-                />
-                <StatusCard
-                  label="In Progress"
-                  value={totalStatusCounts.in_progress}
-                  accentClassName="bg-sky-300/85 shadow-[0_0_18px_rgba(125,211,252,0.35)]"
-                />
-                <StatusCard
-                  label="Completed"
-                  value={totalStatusCounts.completed}
-                  accentClassName="bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.35)]"
-                />
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 2xl:grid-cols-5">
+                {submissionStatuses.map((status) => (
+                  <StatusCard
+                    key={status}
+                    label={formatStatusLabel(status)}
+                    value={totalStatusCounts[status]}
+                    accentClassName={getStatusAccentClassName(status)}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -876,10 +863,14 @@ function formatStatusLabel(value: SubmissionStatus) {
 function getStatusAccentClassName(value: SubmissionStatus) {
   switch (value) {
     case "completed":
-      return "bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.45)]";
-    case "in_progress":
-      return "bg-sky-300/85 shadow-[0_0_18px_rgba(125,211,252,0.45)]";
+      return "bg-blue-400 shadow-[0_0_18px_rgba(96,165,250,0.45)]";
+    case "confirmed":
+      return "bg-emerald-300 shadow-[0_0_18px_rgba(110,231,183,0.45)]";
+    case "cancelled":
+      return "bg-rose-300 shadow-[0_0_18px_rgba(253,164,175,0.42)]";
+    case "pending":
+      return "bg-yellow-300 shadow-[0_0_18px_rgba(253,224,71,0.42)]";
     default:
-      return "bg-amber-200/90 shadow-[0_0_18px_rgba(253,230,138,0.42)]";
+      return "bg-white/80 shadow-[0_0_18px_rgba(255,255,255,0.28)]";
   }
 }

@@ -7,14 +7,18 @@ import {
   AdminPanel,
   AdminSearchInput,
   EmptyState,
+  StatusBadge,
   StatusCard,
   SummaryCard,
   formatDate,
   formatPreferredDate,
   formatStatusLabel,
+  getStatusCounts,
+  statusCardAccentClassName,
 } from "@/components/admin/admin-ui";
 import { formatTimeLabel } from "@/lib/time";
 import {
+  submissionStatuses,
   type BookingRecord,
   type ContactSubmissionRecord,
   type NewsletterSubmissionRecord,
@@ -73,14 +77,7 @@ export default function AdminOverview({
   const hasSearchQuery = normalizedSearchQuery.length > 0;
 
   const allSubmissions = [...bookings, ...contacts, ...newsletters];
-  const totalStatusCounts = {
-    new: allSubmissions.filter((entry) => entry.status === "new").length,
-    in_progress: allSubmissions.filter(
-      (entry) => entry.status === "in_progress",
-    ).length,
-    completed: allSubmissions.filter((entry) => entry.status === "completed")
-      .length,
-  };
+  const totalStatusCounts = getStatusCounts(allSubmissions);
   const rows = useMemo(
     () => ({
       bookings: toBookingRows(bookings),
@@ -113,23 +110,16 @@ export default function AdminOverview({
         }
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
         <SummaryCard label="Total" value={allSubmissions.length} />
-        <StatusCard
-          label="New"
-          value={totalStatusCounts.new}
-          accentClassName="bg-amber-200/90 shadow-[0_0_18px_rgba(253,230,138,0.35)]"
-        />
-        <StatusCard
-          label="In Progress"
-          value={totalStatusCounts.in_progress}
-          accentClassName="bg-sky-300/85 shadow-[0_0_18px_rgba(125,211,252,0.35)]"
-        />
-        <StatusCard
-          label="Completed"
-          value={totalStatusCounts.completed}
-          accentClassName="bg-emerald-300/85 shadow-[0_0_18px_rgba(110,231,183,0.35)]"
-        />
+        {submissionStatuses.map((status) => (
+          <StatusCard
+            key={status}
+            label={formatStatusLabel(status)}
+            value={totalStatusCounts[status]}
+            accentClassName={statusCardAccentClassName(status)}
+          />
+        ))}
       </div>
 
       <AdminPanel className="overflow-hidden p-0 sm:p-0">
@@ -316,31 +306,6 @@ function getDateTime(value: string) {
   const dateTime = new Date(value).getTime();
 
   return Number.isNaN(dateTime) ? 0 : dateTime;
-}
-
-function StatusBadge({ status }: { status: SubmissionStatus }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex min-h-8 items-center gap-2 rounded-full border px-3 text-[0.68rem] font-bold uppercase tracking-[0.16em]",
-        getStatusBadgeClassName(status),
-      )}
-    >
-      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current" />
-      {formatStatusLabel(status)}
-    </span>
-  );
-}
-
-function getStatusBadgeClassName(status: SubmissionStatus) {
-  switch (status) {
-    case "completed":
-      return "border-emerald-300/25 bg-emerald-300/10 text-emerald-200";
-    case "in_progress":
-      return "border-sky-300/25 bg-sky-300/10 text-sky-200";
-    default:
-      return "border-amber-200/25 bg-amber-200/10 text-amber-100";
-  }
 }
 
 function getTabLabel(tab: OverviewTab) {

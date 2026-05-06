@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import {
+  formatStatusLabel,
+  getStatusAccentClassName,
+  getStatusBadgeClassName,
+  getStatusCounts,
   type SubmissionStatus,
 } from "@/lib/submissions";
 import SubmissionStatusSelect from "@/components/admin/submission-status-select";
@@ -154,6 +158,23 @@ export function StatusCard({
   );
 }
 
+export { getStatusAccentClassName, getStatusBadgeClassName, getStatusCounts };
+
+export function statusCardAccentClassName(value: SubmissionStatus) {
+  return getStatusAccentClassName(value);
+}
+
+export function StatusBadge({ status }: { status: SubmissionStatus }) {
+  return (
+    <span
+      className={`inline-flex min-h-8 items-center gap-2 rounded-full border px-3 text-[0.68rem] font-bold uppercase tracking-[0.16em] ${getStatusBadgeClassName(status)}`}
+    >
+      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-current" />
+      {formatStatusLabel(status)}
+    </span>
+  );
+}
+
 export function QuickLinkCard({
   href,
   label,
@@ -257,9 +278,4 @@ export function formatPreferredDate(value: string) {
   }).format(parsedDate);
 }
 
-export function formatStatusLabel(value: SubmissionStatus) {
-  return value
-    .split("_")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
+export { formatStatusLabel };
