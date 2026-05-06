@@ -112,7 +112,7 @@ export default function AdminContactPage({
     setUpdating(null);
 
     if (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(formatSubmissionError(error.message));
       return false;
     }
 
@@ -136,7 +136,7 @@ export default function AdminContactPage({
     setUpdating(null);
 
     if (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(formatSubmissionError(error.message));
       return false;
     }
 
@@ -492,4 +492,12 @@ function getDateTime(value: string) {
   const dateTime = new Date(value).getTime();
 
   return Number.isNaN(dateTime) ? 0 : dateTime;
+}
+
+function formatSubmissionError(message: string) {
+  if (message.includes("status_check") || message.includes("check constraint")) {
+    return "The live database still needs the new status migration before this status can be saved.";
+  }
+
+  return message;
 }
