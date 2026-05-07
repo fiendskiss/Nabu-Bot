@@ -21,34 +21,34 @@ interface InteractiveImageAccordionProps {
 const defaultItems: InteractiveAccordionItem[] = [
   {
     id: 1,
-    title: "Ari Velasco",
+    title: "Waka Waka",
     role: "Industrial Design Lead",
     imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778152712/6332600648989348443_v1zqqs.jpg",
     summary: "Shapes the physical presence of NABU to feel approachable, calm, and premium in the home.",
   },
   {
     id: 2,
-    title: "Mika Reyes",
+    title: "Shanne Quitlong",
     role: "Robotics Systems Director",
     imageUrl:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778152712/6332600648989348442_tdzdas.jpg",
     summary: "Leads navigation, actuation, and safety systems that make daily autonomy reliable.",
   },
   {
     id: 3,
-    title: "Sana Ibrahim",
+    title: "Eebraheem Khalas",
     role: "Applied AI Research Lead",
     imageUrl:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200&auto=format&fit=crop",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778152712/6332600648989348444_w4aw7r.jpg",
     summary: "Builds the adaptive intelligence that helps NABU understand context, routines, and tone.",
   },
   {
     id: 4,
-    title: "Noah Lim",
+    title: "Boom Boom Boom",
     role: "Companion Experience Lead",
     imageUrl:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778152712/6332600648989348441_ny14z8.jpg",
     summary: "Designs the human side of the product, from onboarding to long-term trust and comfort.",
   },
 ];
