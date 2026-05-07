@@ -32,7 +32,7 @@ const defaultItems: InteractiveAccordionItem[] = [
     title: "Shanne Quitlong",
     role: "Robotics Systems Director",
     imageUrl:
-      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778152712/6332600648989348442_tdzdas.jpg",
+      "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778152713/6332600648989348447_kypqbd.jpg",
     summary: "Leads navigation, actuation, and safety systems that make daily autonomy reliable.",
   },
   {
