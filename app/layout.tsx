@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const nabuImage =
-  "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777642714/Frame_6_1_a2kcdl.png";
+  "https://res.cloudinary.com/dcmj7quyv/image/upload/v1778150171/Frame_8_qxwqha.png";
+  
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

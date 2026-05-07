@@ -61,9 +61,9 @@ export default function Navbar() {
           minWidth: "fit-content",
         }}
       >
-        <div className="flex w-[calc(100vw-1rem)] items-center justify-between gap-4 px-4 py-2 lg:w-auto lg:justify-center lg:gap-5 lg:px-5">
+        <div className="flex w-[calc(100vw-1.5rem)] items-center justify-between gap-4 px-4 py-2 lg:w-auto lg:justify-center lg:gap-5 lg:px-5">
           <Image
-            src="https://res.cloudinary.com/dcmj7quyv/image/upload/v1777640213/Untitled_devbu3.png"
+            src="https://res.cloudinary.com/dcmj7quyv/image/upload/v1778150171/Group_1_ibuy94.png"
             alt="Brand Logo"
             width={65}
             height={65}
