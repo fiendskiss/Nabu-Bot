@@ -111,7 +111,8 @@ export default function AdminDashboard({
       : true,
   );
   const allSubmissions = [...bookings, ...contacts, ...newsletters];
-  const totalStatusCounts = getStatusCounts(allSubmissions);
+  const statusTrackedSubmissions = [...bookings, ...contacts];
+  const totalStatusCounts = getStatusCounts(statusTrackedSubmissions);
 
   useEffect(() => {
     const syncActiveSectionFromHash = () => {
@@ -182,7 +183,7 @@ export default function AdminDashboard({
   }, [isSidebarOpen]);
 
   const updateStatus = async (
-    table: "bookings" | "contact_submissions" | "newsletter_submissions",
+    table: "bookings" | "contact_submissions",
     id: string,
     nextStatus: SubmissionStatus,
   ) => {
@@ -210,16 +211,7 @@ export default function AdminDashboard({
       return;
     }
 
-    if (table === "contact_submissions") {
-      setContacts((current) =>
-        current.map((entry) =>
-          entry.id === id ? { ...entry, status: nextStatus } : entry,
-        ),
-      );
-      return;
-    }
-
-    setNewsletters((current) =>
+    setContacts((current) =>
       current.map((entry) =>
         entry.id === id ? { ...entry, status: nextStatus } : entry,
       ),
@@ -446,16 +438,16 @@ export default function AdminDashboard({
                     </p>
                   </div>
 
-                  <Actions
-                    value={entry.status}
-                    isBusy={updating?.id === entry.id}
-                    onDelete={() =>
+                  <button
+                    type="button"
+                    disabled={updating?.id === entry.id}
+                    onClick={() =>
                       deleteEntry("newsletter_submissions", entry.id)
                     }
-                    onStatusChange={(status) =>
-                      updateStatus("newsletter_submissions", entry.id, status)
-                    }
-                  />
+                    className="rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/16 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {updating?.id === entry.id ? "Working..." : "Delete"}
+                  </button>
                 </article>
               ))}
             </div>

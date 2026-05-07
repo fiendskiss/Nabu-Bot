@@ -7,28 +7,16 @@ import {
   AdminPanel,
   AdminSearchInput,
   EmptyState,
-  StatusBadge,
-  StatusCard,
   SummaryCard,
   formatDate,
-  formatStatusLabel,
-  getStatusCounts,
-  statusCardAccentClassName,
 } from "@/components/admin/admin-ui";
-import {
-  submissionStatuses,
-  type NewsletterSubmissionRecord,
-  type SubmissionStatus,
-} from "@/lib/submissions";
+import { type NewsletterSubmissionRecord } from "@/lib/submissions";
 import { createClient } from "@/lib/supabase/client";
-import { cn } from "@/lib/utils";
 
 type UpdatingState = {
   id: string;
-  action: "status" | "delete";
+  action: "delete";
 };
-
-type StatusFilter = "all" | SubmissionStatus;
 
 export default function AdminNewsletterPage({
   initialNewsletters,
@@ -41,11 +29,10 @@ export default function AdminNewsletterPage({
   const [updating, setUpdating] = useState<UpdatingState | null>(null);
   const [errorMessage, setErrorMessage] = useState(initialErrorMessage);
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [deletedSubscriberCount, setDeletedSubscriberCount] = useState(0);
   const [selectedNewsletterId, setSelectedNewsletterId] = useState<string | null>(
     null,
   );
-  const [draftStatus, setDraftStatus] = useState<SubmissionStatus>("new");
 
   const supabase = createClient();
   const deferredSearchQuery = useDeferredValue(searchQuery);
@@ -60,15 +47,10 @@ export default function AdminNewsletterPage({
     [newsletters],
   );
   const filteredNewsletters = sortedNewsletters.filter((entry) => {
-    const matchesSearch = hasSearchQuery
+    return hasSearchQuery
       ? (entry.email ?? "").toLowerCase().includes(normalizedSearchQuery)
       : true;
-    const matchesStatus =
-      statusFilter === "all" ? true : entry.status === statusFilter;
-
-    return matchesSearch && matchesStatus;
   });
-  const newsletterStatusCounts = getStatusCounts(newsletters);
   const selectedNewsletter =
     newsletters.find((entry) => entry.id === selectedNewsletterId) ?? null;
 
@@ -93,30 +75,6 @@ export default function AdminNewsletterPage({
     };
   }, [selectedNewsletter]);
 
-  const updateStatus = async (id: string, nextStatus: SubmissionStatus) => {
-    setUpdating({ id, action: "status" });
-    setErrorMessage("");
-
-    const { error } = await supabase
-      .from("newsletter_submissions")
-      .update({ status: nextStatus })
-      .eq("id", id);
-
-    setUpdating(null);
-
-    if (error) {
-      setErrorMessage(formatSubmissionError(error.message));
-      return false;
-    }
-
-    setNewsletters((current) =>
-      current.map((entry) =>
-        entry.id === id ? { ...entry, status: nextStatus } : entry,
-      ),
-    );
-    return true;
-  };
-
   const deleteEntry = async (id: string) => {
     setUpdating({ id, action: "delete" });
     setErrorMessage("");
@@ -134,25 +92,9 @@ export default function AdminNewsletterPage({
     }
 
     setNewsletters((current) => current.filter((entry) => entry.id !== id));
+    setDeletedSubscriberCount((current) => current + 1);
     setSelectedNewsletterId(null);
     return true;
-  };
-
-  const saveSelectedNewsletter = async () => {
-    if (!selectedNewsletter) {
-      return;
-    }
-
-    if (selectedNewsletter.status === draftStatus) {
-      setSelectedNewsletterId(null);
-      return;
-    }
-
-    const didSave = await updateStatus(selectedNewsletter.id, draftStatus);
-
-    if (didSave) {
-      setSelectedNewsletterId(null);
-    }
   };
 
   return (
@@ -170,16 +112,9 @@ export default function AdminNewsletterPage({
         }
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
+      <div className="grid gap-4 sm:grid-cols-2">
         <SummaryCard label="Total" value={newsletters.length} />
-        {submissionStatuses.map((status) => (
-          <StatusCard
-            key={status}
-            label={formatStatusLabel(status)}
-            value={newsletterStatusCounts[status]}
-            accentClassName={statusCardAccentClassName(status)}
-          />
-        ))}
+        <SummaryCard label="Deleted" value={deletedSubscriberCount} />
       </div>
 
       {errorMessage ? (
@@ -189,10 +124,7 @@ export default function AdminNewsletterPage({
       ) : null}
 
       <AdminPanel className="overflow-hidden p-0 sm:p-0">
-        <DashboardToolbar
-          statusFilter={statusFilter}
-          onStatusFilterChange={setStatusFilter}
-        />
+        <DashboardToolbar />
 
         {filteredNewsletters.length === 0 ? (
           <div className="p-4 sm:p-5">
@@ -207,10 +139,9 @@ export default function AdminNewsletterPage({
         ) : (
           <div className="overflow-x-auto">
             <div className="min-w-[48rem]">
-              <div className="grid grid-cols-[minmax(20rem,1.5fr)_minmax(14rem,0.9fr)_minmax(9rem,0.65fr)_2.5rem] border-b border-white/10 px-5 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/36">
-                <span>Subscriber</span>
+              <div className="grid grid-cols-[minmax(20rem,1.5fr)_minmax(14rem,0.9fr)_2.5rem] border-b border-white/10 px-5 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/36">
+                <span>Subscribers</span>
                 <span>Date</span>
-                <span className="text-right">Status</span>
                 <span />
               </div>
 
@@ -219,11 +150,8 @@ export default function AdminNewsletterPage({
                   <button
                     key={entry.id}
                     type="button"
-                    onClick={() => {
-                      setDraftStatus(entry.status);
-                      setSelectedNewsletterId(entry.id);
-                    }}
-                    className="grid w-full grid-cols-[minmax(20rem,1.5fr)_minmax(14rem,0.9fr)_minmax(9rem,0.65fr)_2.5rem] items-center gap-4 px-5 py-5 text-left transition hover:bg-white/[0.025]"
+                    onClick={() => setSelectedNewsletterId(entry.id)}
+                    className="grid w-full grid-cols-[minmax(20rem,1.5fr)_minmax(14rem,0.9fr)_2.5rem] items-center gap-4 px-5 py-5 text-left transition hover:bg-white/[0.025]"
                   >
                     <span className="min-w-0">
                       <span className="block truncate text-base font-semibold text-white">
@@ -243,10 +171,6 @@ export default function AdminNewsletterPage({
                       </span>
                     </span>
 
-                    <span className="justify-self-end">
-                      <StatusBadge status={entry.status} />
-                    </span>
-
                     <ArrowRight className="h-4 w-4 justify-self-end text-white/28" />
                   </button>
                 ))}
@@ -259,50 +183,25 @@ export default function AdminNewsletterPage({
       {selectedNewsletter ? (
         <NewsletterDetailsDialog
           newsletter={selectedNewsletter}
-          draftStatus={draftStatus}
           isBusy={updating?.id === selectedNewsletter.id}
           onClose={() => setSelectedNewsletterId(null)}
           onDelete={() => deleteEntry(selectedNewsletter.id)}
-          onDraftStatusChange={setDraftStatus}
-          onSave={saveSelectedNewsletter}
         />
       ) : null}
     </div>
   );
 }
 
-function DashboardToolbar({
-  statusFilter,
-  onStatusFilterChange,
-}: {
-  statusFilter: StatusFilter;
-  onStatusFilterChange: (filter: StatusFilter) => void;
-}) {
+function DashboardToolbar() {
   return (
     <div className="flex flex-col gap-3 border-b border-white/10 p-4 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/42">
           Newsletter Queue
         </p>
-        <p className="mt-2 text-sm text-white/50">
-          Newest subscriber signups appear first.
-        </p>
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <FilterButton
-          label="All"
-          isActive={statusFilter === "all"}
-          onClick={() => onStatusFilterChange("all")}
-        />
-        {submissionStatuses.map((status) => (
-          <FilterButton
-            key={status}
-            label={formatStatusLabel(status)}
-            isActive={statusFilter === status}
-            onClick={() => onStatusFilterChange(status)}
-          />
-        ))}
         <button
           type="button"
           onClick={() => window.location.reload()}
@@ -316,62 +215,30 @@ function DashboardToolbar({
   );
 }
 
-function FilterButton({
-  label,
-  isActive,
-  onClick,
-}: {
-  label: string;
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={isActive}
-      onClick={onClick}
-      className={cn(
-        "min-h-11 rounded-[16px] border px-4 text-xs font-bold uppercase tracking-[0.16em] transition",
-        isActive
-          ? "border-violet-300/40 bg-[linear-gradient(135deg,#60A5FA_0%,#7C3AED_55%,#A855F7_100%)] text-white shadow-[0_16px_38px_rgba(124,58,237,0.28)]"
-          : "border-white/10 bg-white/[0.04] text-white/54 hover:border-white/20 hover:bg-white/[0.08] hover:text-white",
-      )}
-    >
-      {label}
-    </button>
-  );
-}
-
 function NewsletterDetailsDialog({
   newsletter,
-  draftStatus,
   isBusy,
   onClose,
   onDelete,
-  onDraftStatusChange,
-  onSave,
 }: {
   newsletter: NewsletterSubmissionRecord;
-  draftStatus: SubmissionStatus;
   isBusy: boolean;
   onClose: () => void;
   onDelete: () => void;
-  onDraftStatusChange: (status: SubmissionStatus) => void;
-  onSave: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/72 px-4 py-6 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-black/72 px-2 py-2 backdrop-blur-sm sm:items-center sm:px-4 sm:py-6">
       <section
         role="dialog"
         aria-modal="true"
         aria-labelledby="newsletter-details-title"
-        className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-white/12 bg-[#1a1513] shadow-[0_30px_100px_rgba(0,0,0,0.55)]"
+        className="flex max-h-[calc(100svh-1rem)] w-full max-w-2xl flex-col overflow-hidden rounded-[22px] border border-white/12 bg-[#151515] shadow-[0_30px_100px_rgba(0,0,0,0.55)] sm:max-h-[calc(100svh-3rem)] sm:rounded-[26px]"
       >
-        <header className="flex items-start justify-between gap-4 border-b border-white/10 px-6 py-6">
+        <header className="flex shrink-0 items-start justify-between gap-3 border-b border-white/10 px-4 py-4 sm:gap-4 sm:px-6 sm:py-6">
           <div className="min-w-0">
             <h2
               id="newsletter-details-title"
-              className="truncate text-2xl font-black tracking-[-0.05em] text-white"
+              className="truncate text-xl font-black tracking-[-0.05em] text-white sm:text-2xl"
             >
               {newsletter.email || "Unknown subscriber"}
             </h2>
@@ -383,63 +250,27 @@ function NewsletterDetailsDialog({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/56 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/56 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white sm:h-11 sm:w-11"
             aria-label="Close newsletter details"
           >
             <X className="h-5 w-5" />
           </button>
         </header>
 
-        <div className="grid gap-6 px-6 py-6">
-          <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 overflow-y-auto px-4 py-4 sm:gap-6 sm:px-6 sm:py-6">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
             <DetailField label="Email" value={newsletter.email || "Not provided"} />
             <DetailField label="Submitted" value={formatDate(newsletter.created_at)} />
-            <DetailField
-              label="Current Status"
-              value={formatStatusLabel(newsletter.status)}
-            />
           </div>
 
-          <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/38">
-              Update Status
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {submissionStatuses.map((status) => (
-                <button
-                  key={status}
-                  type="button"
-                  disabled={isBusy}
-                  onClick={() => onDraftStatusChange(status)}
-                  className={cn(
-                    "min-h-10 rounded-full border px-4 text-xs font-bold uppercase tracking-[0.16em] transition disabled:cursor-not-allowed disabled:opacity-60",
-                    draftStatus === status
-                      ? "border-violet-300/45 bg-violet-400/14 text-violet-100 shadow-[0_10px_30px_rgba(124,58,237,0.18)]"
-                      : "border-white/10 bg-transparent text-white/42 hover:border-white/20 hover:text-white/78",
-                  )}
-                >
-                  {formatStatusLabel(status)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_7rem]">
-            <button
-              type="button"
-              disabled={isBusy}
-              onClick={onSave}
-              className="min-h-14 rounded-[18px] bg-[linear-gradient(135deg,#60A5FA_0%,#7C3AED_55%,#A855F7_100%)] px-5 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_18px_44px_rgba(124,58,237,0.26)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isBusy ? "Saving..." : "Save Changes"}
-            </button>
+          <div className="flex justify-end">
             <button
               type="button"
               disabled={isBusy}
               onClick={onDelete}
-              className="min-h-14 rounded-[18px] border border-white/10 bg-transparent px-5 text-sm font-black uppercase tracking-[0.12em] text-white/46 transition hover:border-rose-300/30 hover:bg-rose-400/10 hover:text-rose-100 disabled:cursor-not-allowed disabled:opacity-60"
+              className="min-h-12 rounded-[18px] border border-white/10 bg-transparent px-5 text-sm font-black uppercase tracking-[0.12em] text-white/46 transition hover:border-rose-300/30 hover:bg-rose-400/10 hover:text-rose-100 disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-14"
             >
-              Delete
+              {isBusy ? "Working..." : "Delete"}
             </button>
           </div>
         </div>
@@ -468,9 +299,5 @@ function getDateTime(value: string) {
 }
 
 function formatSubmissionError(message: string) {
-  if (message.includes("status_check") || message.includes("check constraint")) {
-    return "The live database still needs the new status migration before this status can be saved.";
-  }
-
   return message;
 }

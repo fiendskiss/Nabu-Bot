@@ -56,7 +56,11 @@ function AdminShellLayout({
   return (
     <div className="flex min-h-svh bg-[#050505] text-white">
       {isMobile ? (
-        <Sidebar variant="sidebar" collapsible="offcanvas">
+        <Sidebar
+          variant="sidebar"
+          collapsible="offcanvas"
+          className="dark border-white/10 bg-[#161616] text-white shadow-[0_24px_80px_rgba(0,0,0,0.5)]"
+        >
           <AdminSidebar links={adminSidebarLinks} />
         </Sidebar>
       ) : null}

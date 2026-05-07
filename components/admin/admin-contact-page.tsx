@@ -302,9 +302,6 @@ function DashboardToolbar({
         <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/42">
           Contact Queue
         </p>
-        <p className="mt-2 text-sm text-white/50">
-          Newest contact messages appear first.
-        </p>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -378,18 +375,18 @@ function ContactDetailsDialog({
   onSave: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/72 px-4 py-6 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-black/72 px-2 py-2 backdrop-blur-sm sm:items-center sm:px-4 sm:py-6">
       <section
         role="dialog"
         aria-modal="true"
         aria-labelledby="contact-details-title"
-        className="w-full max-w-2xl overflow-hidden rounded-[26px] border border-white/12 bg-[#1a1513] shadow-[0_30px_100px_rgba(0,0,0,0.55)]"
+        className="flex max-h-[calc(100svh-1rem)] w-full max-w-2xl flex-col overflow-hidden rounded-[22px] border border-white/12 bg-[#151515] shadow-[0_30px_100px_rgba(0,0,0,0.55)] sm:max-h-[calc(100svh-3rem)] sm:rounded-[26px]"
       >
-        <header className="flex items-start justify-between gap-4 border-b border-white/10 px-6 py-6">
+        <header className="flex shrink-0 items-start justify-between gap-3 border-b border-white/10 px-4 py-4 sm:gap-4 sm:px-6 sm:py-6">
           <div className="min-w-0">
             <h2
               id="contact-details-title"
-              className="truncate text-2xl font-black tracking-[-0.05em] text-white"
+              className="truncate text-xl font-black tracking-[-0.05em] text-white sm:text-2xl"
             >
               {contact.name}
             </h2>
@@ -402,15 +399,15 @@ function ContactDetailsDialog({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/56 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white/56 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white sm:h-11 sm:w-11"
             aria-label="Close contact details"
           >
             <X className="h-5 w-5" />
           </button>
         </header>
 
-        <div className="grid gap-6 px-6 py-6">
-          <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 overflow-y-auto px-4 py-4 sm:gap-6 sm:px-6 sm:py-6">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
             <DetailField label="Name" value={contact.name} />
             <DetailField label="Company" value={contact.company || "Not provided"} />
             <DetailField label="Email" value={contact.email} />
@@ -439,7 +436,7 @@ function ContactDetailsDialog({
                   disabled={isBusy}
                   onClick={() => onDraftStatusChange(status)}
                   className={cn(
-                    "min-h-10 rounded-full border px-4 text-xs font-bold uppercase tracking-[0.16em] transition disabled:cursor-not-allowed disabled:opacity-60",
+                    "min-h-9 rounded-full border px-3 text-[0.68rem] font-bold uppercase tracking-[0.16em] transition disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-10 sm:px-4 sm:text-xs",
                     draftStatus === status
                       ? "border-violet-300/45 bg-violet-400/14 text-violet-100 shadow-[0_10px_30px_rgba(124,58,237,0.18)]"
                       : "border-white/10 bg-transparent text-white/42 hover:border-white/20 hover:text-white/78",
@@ -456,7 +453,7 @@ function ContactDetailsDialog({
               type="button"
               disabled={isBusy}
               onClick={onSave}
-              className="min-h-14 rounded-[18px] bg-[linear-gradient(135deg,#60A5FA_0%,#7C3AED_55%,#A855F7_100%)] px-5 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_18px_44px_rgba(124,58,237,0.26)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              className="min-h-12 rounded-[18px] bg-[linear-gradient(135deg,#60A5FA_0%,#7C3AED_55%,#A855F7_100%)] px-5 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_18px_44px_rgba(124,58,237,0.26)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-14"
             >
               {isBusy ? "Saving..." : "Save Changes"}
             </button>
@@ -464,7 +461,7 @@ function ContactDetailsDialog({
               type="button"
               disabled={isBusy}
               onClick={onDelete}
-              className="min-h-14 rounded-[18px] border border-white/10 bg-transparent px-5 text-sm font-black uppercase tracking-[0.12em] text-white/46 transition hover:border-rose-300/30 hover:bg-rose-400/10 hover:text-rose-100 disabled:cursor-not-allowed disabled:opacity-60"
+              className="min-h-12 rounded-[18px] border border-white/10 bg-transparent px-5 text-sm font-black uppercase tracking-[0.12em] text-white/46 transition hover:border-rose-300/30 hover:bg-rose-400/10 hover:text-rose-100 disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-14"
             >
               Delete
             </button>

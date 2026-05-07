@@ -36,7 +36,7 @@ type OverviewRow = {
   detail: string;
   secondaryDetail?: string;
   createdAt: string;
-  status: SubmissionStatus;
+  status?: SubmissionStatus;
 };
 
 const overviewTabs = [
@@ -77,7 +77,8 @@ export default function AdminOverview({
   const hasSearchQuery = normalizedSearchQuery.length > 0;
 
   const allSubmissions = [...bookings, ...contacts, ...newsletters];
-  const totalStatusCounts = getStatusCounts(allSubmissions);
+  const statusTrackedSubmissions = [...bookings, ...contacts];
+  const totalStatusCounts = getStatusCounts(statusTrackedSubmissions);
   const rows = useMemo(
     () => ({
       bookings: toBookingRows(bookings),
@@ -193,18 +194,32 @@ export default function AdminOverview({
         ) : (
           <div className="overflow-x-auto">
             <div className="min-w-[48rem]">
-              <div className="grid grid-cols-[minmax(14rem,1.2fr)_minmax(16rem,1.4fr)_minmax(12rem,0.9fr)_minmax(9rem,0.65fr)] border-b border-white/10 px-5 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/36">
+              <div
+                className={cn(
+                  "grid border-b border-white/10 px-5 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/36",
+                  activeTab === "newsletters"
+                    ? "grid-cols-[minmax(14rem,1.2fr)_minmax(16rem,1.4fr)_minmax(12rem,0.9fr)]"
+                    : "grid-cols-[minmax(14rem,1.2fr)_minmax(16rem,1.4fr)_minmax(12rem,0.9fr)_minmax(9rem,0.65fr)]",
+                )}
+              >
                 <span>{activeTab === "newsletters" ? "Subscriber" : "Name"}</span>
                 <span>{activeTab === "bookings" ? "Booking" : "Details"}</span>
                 <span>Date</span>
-                <span className="text-right">Status</span>
+                {activeTab === "newsletters" ? null : (
+                  <span className="text-right">Status</span>
+                )}
               </div>
 
               <div className="divide-y divide-white/10">
                 {filteredRows.map((entry) => (
                   <article
                     key={`${entry.tab}-${entry.id}`}
-                    className="grid grid-cols-[minmax(14rem,1.2fr)_minmax(16rem,1.4fr)_minmax(12rem,0.9fr)_minmax(9rem,0.65fr)] items-center gap-4 px-5 py-5 transition hover:bg-white/[0.025]"
+                    className={cn(
+                      "grid items-center gap-4 px-5 py-5 transition hover:bg-white/[0.025]",
+                      activeTab === "newsletters"
+                        ? "grid-cols-[minmax(14rem,1.2fr)_minmax(16rem,1.4fr)_minmax(12rem,0.9fr)]"
+                        : "grid-cols-[minmax(14rem,1.2fr)_minmax(16rem,1.4fr)_minmax(12rem,0.9fr)_minmax(9rem,0.65fr)]",
+                    )}
                   >
                     <div className="min-w-0">
                       <h2 className="truncate text-base font-semibold text-white">
@@ -235,9 +250,11 @@ export default function AdminOverview({
                       </p>
                     </div>
 
-                    <div className="justify-self-end">
-                      <StatusBadge status={entry.status} />
-                    </div>
+                    {entry.status ? (
+                      <div className="justify-self-end">
+                        <StatusBadge status={entry.status} />
+                      </div>
+                    ) : null}
                   </article>
                 ))}
               </div>
@@ -290,7 +307,6 @@ function toNewsletterRows(
       subtitle: "Newsletter signup",
       detail: "Joined update list",
       createdAt: entry.created_at,
-      status: entry.status,
     })),
   );
 }
