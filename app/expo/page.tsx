@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Expo() {
   return (
-    <main className=" bg-[#050505]">
+    <main className="overflow-x-hidden bg-[#050505]">
       <Navbar />
       <Section1 />
       <Section2 />

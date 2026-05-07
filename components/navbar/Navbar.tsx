@@ -51,19 +51,17 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-3">
       <GlassSurface
-        className="lg:!w-auto lg:!max-w-none lg:!min-w-fit"
         borderRadius={999}
         blur={20}
         opacity={0.18}
         borderWidth={1}
         style={{
-          width: "calc(100vw - 2rem)",
-          maxWidth: "calc(100vw - 2rem)",
+          width: "auto",
           height: "auto",
-          minWidth: 0,
+          minWidth: "fit-content",
         }}
       >
-        <div className="flex w-full items-center justify-between gap-4 px-4 py-2 lg:w-auto lg:justify-center lg:gap-5 lg:px-5">
+        <div className="flex w-[calc(100vw-2rem)] items-center justify-between gap-4 px-4 py-2 lg:w-auto lg:justify-center lg:gap-5 lg:px-5">
           <Image
             src="https://res.cloudinary.com/dcmj7quyv/image/upload/v1777640213/Untitled_devbu3.png"
             alt="Brand Logo"
