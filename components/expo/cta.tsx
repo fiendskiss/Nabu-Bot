@@ -4,6 +4,7 @@ import Image from "next/image";
 import BorderGlow from "@/components/BorderGlow";
 import { InteractiveHoverButton } from "@/components/button/interactive-hover-button";
 import ExpoSectionHeader from "@/components/expo/section-header";
+import Link from "next/link";
 
 const CTA_IMAGE =
   "https://res.cloudinary.com/dcmj7quyv/image/upload/v1777195921/footer-illustration_ypbfeo.webp";
@@ -33,12 +34,14 @@ export default function ExpoCta() {
                 />
 
                 <div className="mt-7 lg:mt-10">
-                  <InteractiveHoverButton className="border-white/12 bg-black px-7 py-3 text-base text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_18px_40px_rgba(0,0,0,0.4)] [&>div:first-child>div:first-child]:bg-[linear-gradient(135deg,#7C3AED_0%,#5E00FF_50%,#A855F7_100%)] [&>div:last-child]:text-white">
-                    <span className="inline-flex items-center gap-2">
-                      Book a Demo
-                    </span>
-                  </InteractiveHoverButton>
-                </div>
+  <Link href="/book">
+    <InteractiveHoverButton className="border-white/12 bg-black px-7 py-3 text-base text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_18px_40px_rgba(0,0,0,0.4)] [&>div:first-child>div:first-child]:bg-[linear-gradient(135deg,#7C3AED_0%,#5E00FF_50%,#A855F7_100%)] [&>div:last-child]:text-white">
+      <span className="inline-flex items-center gap-2">
+        Book a Demo
+      </span>
+    </InteractiveHoverButton>
+  </Link>
+</div>
               </div>
             </div>
 
